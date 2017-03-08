@@ -19,16 +19,14 @@ namespace Project1.Test.WriteSideTests
         [Test]
         public void EventStoreConnectionLocalDB_Test()
         {
-            var nEventStoreConfig= Wireup.Init()
-               .LogToOutputWindow()
-               .UsingInMemoryPersistence()
-               .UsingSqlPersistence("LocalDb")
-               .WithDialect(new MsSqlDialect())
-               .EnlistInAmbientTransaction()
-               .InitializeStorageEngine()
-               .UsingJsonSerialization()
-               //.UsingSynchronousDispatchScheduler()
-               .Build();
+            var nEventStoreConfig = StoreConnections.CreateLocalDbConnection();
+
+            Assert.IsInstanceOf<IStoreEvents>(nEventStoreConfig);
+        }
+        [Test]
+        public void EventStoreMemoryConnection_Test()
+        {
+            var nEventStoreConfig = StoreConnections.CreateMemoryConnection();
 
             Assert.IsInstanceOf<IStoreEvents>(nEventStoreConfig);
         }
