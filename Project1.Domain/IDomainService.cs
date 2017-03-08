@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project1.WriteSide
+namespace Project1.Domain
 {
-    public class Class1
+    public interface IDomainService
     {
     }
 }

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Project1.Common.Commands.Project
 {
-    interface IMakeProjectInActive
+    public interface IMakeProjectInActive
     {
+        Guid Id { get; }
     }
 }

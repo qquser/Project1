@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D348DF2D-2740-4CE5-B348-602ED3D9736C}</ProjectGuid>
+    <ProjectGuid>{CFAC0EB5-33A3-4BF5-A262-1472E10633A3}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Project1.Test</RootNamespace>
-    <AssemblyName>Project1.Test</AssemblyName>
+    <RootNamespace>Project1.Domain</RootNamespace>
+    <AssemblyName>Project1.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -29,15 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NEventStore, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NEventStore.5.2.0\lib\net40\NEventStore.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,38 +48,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainTests\ProjectAggregateTests.cs" />
-    <Compile Include="TestExample.cs" />
+    <Compile Include="AggregateFactory.cs" />
+    <Compile Include="IDomainService.cs" />
+    <Compile Include="Project\Events\ProjectAdded.cs" />
+    <Compile Include="Project\Events\ProjectMarkedAsInActive.cs" />
+    <Compile Include="Project\Events\ProjectRenamed.cs" />
+    <Compile Include="Project\ProjectAggregate.cs" />
+    <Compile Include="Project\Service\IProjectService.cs" />
+    <Compile Include="Project\Service\ProjectService.cs" />
+    <Compile Include="Project\ValueObjects\ProjectName.cs" />
+    <Compile Include="Project\ValueObjects\ProjectState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WriteSideTests\ConnectionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Project1.Application.API\Project1.Application.API.csproj">
-      <Project>{ed60dba5-2654-4136-afa2-dfddfc06468a}</Project>
-      <Name>Project1.Application.API</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Project1.Common\Project1.Common.csproj">
       <Project>{cba95802-ab3c-4c4d-8f9e-9390eb4b6947}</Project>
       <Name>Project1.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Project1.Domain\Project1.Domain.csproj">
-      <Project>{cfac0eb5-33a3-4bf5-a262-1472e10633a3}</Project>
-      <Name>Project1.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Project1.WriteSide\Project1.WriteSide.csproj">
-      <Project>{3fdd7ef5-ab69-432a-af8e-89d5622fa1e3}</Project>
-      <Name>Project1.WriteSide</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ApplicationApiTests\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
