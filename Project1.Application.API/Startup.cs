@@ -7,11 +7,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MassTransit;
+using MassTransit.Util;
 
 namespace Project1.Application.API
 {
     public class Startup
     {
+        static IBusControl _bus;
+        //static BusHandle _busHandle;
+        public IConfigurationRoot Configuration { get; }
+
+        public static IBus Bus => _bus;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -20,15 +28,18 @@ namespace Project1.Application.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            CreateBus();
         }
 
-        public IConfigurationRoot Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc();
+            //services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +49,31 @@ namespace Project1.Application.API
             loggerFactory.AddDebug();
 
             app.UseMvc();
+        }
+
+        private Uri GetHostAddress()
+        {
+            var uriBuilder = new UriBuilder();
+            var config = Configuration;
+            Configuration.GetSection("RabbitMQHost").Bind(uriBuilder);
+   
+            return uriBuilder.Uri;
+        }
+
+        private void CreateBus()
+        {
+            var userName = Configuration.GetValue<string>("RabbitMQ:UserName");
+            var password = Configuration.GetValue<string>("RabbitMQ:Password");
+            _bus = MassTransit.Bus.Factory.CreateUsingRabbitMq(x =>
+            {
+                x.Host(GetHostAddress(), h =>
+                {
+                    h.Username(userName);
+                    h.Password(password);
+                });
+            });
+
+            TaskUtil.Await(() => _bus.StartAsync());
         }
     }
 }

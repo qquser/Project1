@@ -13,14 +13,29 @@ namespace Project1.ConsoleClient
         {
             Console.WriteLine("Hello World!");
 
-            Console.WriteLine(ApiTest(5)); 
+            //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
+            ProjectRename(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"));
             Console.ReadKey();
         }
 
-        public static string ApiTest(int id)
+        private static void ProjectRename(Guid id)
         {
-            var client = new RestClient("http://localhost:49722/");
-            var request = new RestRequest("api/values/" + id, Method.GET);
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/project/{id.ToString()}/name", Method.POST);
+            request.AddParameter("NewName", "NewProject");
+            var response = new RestResponse();
+            Task.Run(async () =>
+            {
+                response = await GetResponseContentAsync(client, request) as RestResponse;
+            }).Wait();
+            Console.WriteLine(response.Content);
+            Console.ReadKey();
+        }
+
+        public static string ApiTest(Guid id)
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest("api/values/1", Method.GET);
             var response = new RestResponse();
             Task.Run(async () =>
             {

@@ -12,15 +12,20 @@ namespace Project1.Application.API
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
+            var host = WebHost();
+            host.Run();
+        }
+
+        public static IWebHost WebHost()
+        {
+            return new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                //.UseUrls("http://localhost:50001/")
                 .UseApplicationInsights()
                 .Build();
-
-            host.Run();
         }
     }
 }

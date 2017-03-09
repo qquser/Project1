@@ -14,11 +14,6 @@ namespace Project1.Test
         [Test]
         public void NonEmptyIdentity_Test()
         {
-            // Arrange
-
-            // Act
-
-            // Assert
             Assert.Throws<ArgumentException>(()=> new NonEmptyIdentity(Guid.Empty));
         }
     }
