@@ -14,6 +14,7 @@ using Ninject;
 using Ninject.Activation.Providers;
 using Ninject.Extensions.Conventions;
 using Project1.Domain.Project.Service;
+using System.Threading.Tasks;
 
 namespace Project1.WriteSide
 {
@@ -23,6 +24,7 @@ namespace Project1.WriteSide
         private readonly StandardKernel _kernel = new StandardKernel();
 
         private IBusControl _busControl;
+        private BusHandle _busHandle;
 
         public bool Start(HostControl hostControl)
         {
@@ -30,11 +32,19 @@ namespace Project1.WriteSide
             ConfigureContainer();
             _busControl = _kernel.Get<IBusControl>();
             _logger.Info("Starting bus...");
-            
-            TaskUtil.Await(() => _busControl.StartAsync());
+
+            //_busHandle = await  _busControl.StartAsync();
+            StartBus().Wait();
+            TaskUtil.Await(() => _busHandle.Ready);
             return true;
 
         }
+
+        private async Task StartBus()
+        {
+            _busHandle = await _busControl.StartAsync();
+        }
+
 
         public bool Stop(HostControl hostControl)
         {

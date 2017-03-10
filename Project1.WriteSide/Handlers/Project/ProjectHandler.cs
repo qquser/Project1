@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Project1.WriteSide.Handlers.Project
 {
-    internal class ProjectHandler :
+    public class ProjectHandler :
         IConsumer<IAddProject>,
         IConsumer<IMakeProjectInActive>,
         IConsumer<IRenameProject>

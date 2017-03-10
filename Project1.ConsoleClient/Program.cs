@@ -11,11 +11,20 @@ namespace Project1.ConsoleClient
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello .net core!");
+            Console.ReadKey();
+            ConsoleKeyInfo input;
+            do
+            {
+                Console.WriteLine("1");
+                ProjectAdd(Guid.NewGuid());
+       
+                input = Console.ReadKey();
+            } while (input.Key != ConsoleKey.Escape);
 
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
-            ProjectRename(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"));
-            Console.ReadKey();
+            // ProjectAdd(Guid.NewGuid());
+            //Console.ReadKey();
         }
 
         private static void ProjectRename(Guid id)
@@ -30,6 +39,21 @@ namespace Project1.ConsoleClient
             }).Wait();
             Console.WriteLine(response.Content);
             Console.ReadKey();
+        }
+
+        private static void ProjectAdd(Guid id)
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/project", Method.POST);
+            request.AddParameter("ProjectId", id);
+            request.AddParameter("Name", "New1");
+            var response = new RestResponse();
+            Task.Run(async () =>
+            {
+                response = await GetResponseContentAsync(client, request) as RestResponse;
+            }).Wait();
+            Console.WriteLine(response.Content);
+            //Console.ReadKey();
         }
 
         public static string ApiTest(Guid id)
@@ -69,13 +93,5 @@ namespace Project1.ConsoleClient
             Console.ReadKey();
         }
 
-    }
-
-    public static class Calculator
-    {
-        public static int Add(int x, int y) => x + y;
-        public static int Subtract(int x, int y) => x - y;
-        public static int Multiply(int x, int y) => x * y;
-        public static int Divide(int x, int y) => x / y;
     }
 }
