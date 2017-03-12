@@ -51,10 +51,9 @@ namespace Project1.Application.API
             app.UseMvc();
         }
 
-        private Uri GetHostAddress()
+        public Uri GetHostAddress()
         {
             var uriBuilder = new UriBuilder();
-            var config = Configuration;
             Configuration.GetSection("RabbitMQHost").Bind(uriBuilder);
    
             return uriBuilder.Uri;

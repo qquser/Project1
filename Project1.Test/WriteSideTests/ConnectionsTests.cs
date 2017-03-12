@@ -11,6 +11,7 @@ using Project1.Domain.Project.ValueObjects;
 using Project1.Domain.Project;
 using Project1.Domain.Project.Events;
 
+
 namespace Project1.Test.WriteSideTests
 {
     [TestFixture]
@@ -30,5 +31,7 @@ namespace Project1.Test.WriteSideTests
 
             Assert.IsInstanceOf<IStoreEvents>(nEventStoreConfig);
         }
+
+
     }
 }

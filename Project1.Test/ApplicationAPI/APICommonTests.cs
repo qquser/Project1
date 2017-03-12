@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NEventStore;
 
 namespace Project1.Test.ApplicationAPI
 {
@@ -18,5 +19,13 @@ namespace Project1.Test.ApplicationAPI
             
             Assert.Throws<ArgumentException>(() => new NonEmptyIdentity(Guid.Empty));
         }
+
+        //[Test]
+        //public void RabbitUri_Test()
+        //{
+        //    var nEventStoreConfig = new Startup();
+
+
+        //}
     }
 }

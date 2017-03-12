@@ -63,7 +63,7 @@ namespace Project1.WriteSide
 
             _kernel.Bind(x => x
                 .FromThisAssembly()
-                .IncludingNonePublicTypes()
+                //.IncludingNonePublicTypes()
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IConsumer))
                 .BindToSelf());
