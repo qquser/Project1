@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Project1.Common.Events;
 using MassTransit;
 using Ninject;
+using System.Threading;
 
 namespace Project1.WriteSide
 {
@@ -10,16 +11,26 @@ namespace Project1.WriteSide
     {
         private readonly IBusControl _bus;
 
-        public EventPublisher(StandardKernel container)
+        public EventPublisher(IBusControl bus)
         {
-            _bus = container.Get<IBusControl>();
+            _bus = bus;// container.Get<IBusControl>();
         }
 
-        public async Task PublishAsync(dynamic e)
+        //public async Task PublishAsync1(dynamic e)
+        //{
+        //    var address = "rabbitmq://localhost/events";
+        //    var endpoint = await _bus.GetSendEndpoint(new Uri(address));
+        //    await endpoint.Send(e);
+        //}
+
+        public async Task PublishAsync<TMessage>(TMessage message,
+    CancellationToken cancellationToken = default(CancellationToken))
+    where TMessage : class
         {
             var address = "rabbitmq://localhost/events";
             var endpoint = await _bus.GetSendEndpoint(new Uri(address));
-            await endpoint.Send(e);
+            await endpoint.Send<TMessage>(message, cancellationToken);
         }
+
     }
 }

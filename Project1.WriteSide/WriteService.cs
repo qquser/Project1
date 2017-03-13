@@ -63,7 +63,7 @@ namespace Project1.WriteSide
 
             _kernel.Bind(x => x
                 .FromThisAssembly()
-                //.IncludingNonePublicTypes()
+                .IncludingNonePublicTypes()
                 .SelectAllClasses()
                 .InheritedFrom(typeof(IConsumer))
                 .BindToSelf());
@@ -89,8 +89,9 @@ namespace Project1.WriteSide
             _kernel.Bind<IBus>()
                 .ToProvider(new CallbackProvider<IBus>(x => x.Kernel.Get<IBusControl>()));
 
+            var bus = _kernel.Get<IBusControl>();
             _kernel.Bind<IStoreEvents>()
-                .ToMethod(context => EventStoreConfig.Create(_kernel))
+                .ToMethod(context => EventStoreConfig.Create(bus))
                 .InSingletonScope();
 
             _kernel.Bind<IDetectConflicts>().To<ConflictDetector>();

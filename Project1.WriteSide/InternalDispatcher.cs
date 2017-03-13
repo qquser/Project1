@@ -2,6 +2,7 @@
 using Project1.Common.Events;
 using NEventStore;
 using NEventStore.Dispatcher;
+using System.Threading;
 
 namespace Project1.WriteSide
 {
@@ -24,7 +25,7 @@ namespace Project1.WriteSide
             foreach (var e in commit.Events)
             {
                 //var messageType = e.Body.GetType();
-                _publisher.PublishAsync(e.Body);
+                _publisher.PublishAsync(e.Body, default(CancellationToken));
             }
         }
     }

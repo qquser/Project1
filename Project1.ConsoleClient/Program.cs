@@ -17,8 +17,8 @@ namespace Project1.ConsoleClient
             do
             {
                 Console.WriteLine("1");
-                ProjectAdd(Guid.NewGuid());
-       
+                Task.Run(()=>ProjectAdd(Guid.NewGuid()));
+                Console.WriteLine("sended");
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);
 
@@ -41,17 +41,15 @@ namespace Project1.ConsoleClient
             Console.ReadKey();
         }
 
-        private static void ProjectAdd(Guid id)
+        private static async Task ProjectAdd(Guid id)
         {
             var client = new RestClient("http://localhost:49987/");
             var request = new RestRequest($"api/project", Method.POST);
             request.AddParameter("ProjectId", id);
             request.AddParameter("Name", "New1");
             var response = new RestResponse();
-            Task.Run(async () =>
-            {
-                response = await GetResponseContentAsync(client, request) as RestResponse;
-            }).Wait();
+            response = await GetResponseContentAsync(client, request) as RestResponse;
+
             Console.WriteLine(response.Content);
             //Console.ReadKey();
         }

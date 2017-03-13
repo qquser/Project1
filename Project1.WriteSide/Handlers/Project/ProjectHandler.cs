@@ -19,6 +19,7 @@ namespace Project1.WriteSide.Handlers.Project
 
         public async Task Consume(ConsumeContext<IAddProject> context)
         {
+
             await Task.Run(() => _service.AddProject(
                 context.Message.Id,
                 context.Message.Name));
