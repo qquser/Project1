@@ -1,9 +1,15 @@
-﻿using System.Data.Entity.ModelConfiguration.Configuration;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Project1.ReadSide.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Project1.ReadSide.Interfaces
 {
-    internal interface IModelConfiguration
+    internal interface IModelConfiguration<TEntity> where TEntity : BaseModel
     {
-        void AddConfiguration(ConfigurationRegistrar registrar);
+        void Configure(EntityTypeBuilder<TEntity> entity);
     }
 }

@@ -1,41 +1,36 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using Project1.ReadSide.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Project1.ReadSide.Helpers
 {
-    [InheritedExport(typeof(IModelConfiguration))]
-    internal class BaseModelConfiguration<TEntity> : EntityTypeConfiguration<TEntity>, IModelConfiguration
+    //[InheritedExport(typeof(IModelConfiguration))]
+    internal abstract class BaseModelConfiguration<TEntity> : IModelConfiguration<TEntity>
         where TEntity : BaseModel
     {
-        protected BaseModelConfiguration()
+
+        public void Configure(EntityTypeBuilder<TEntity> entity)
         {
-            HasKey(p => p.Id);
-            Property(p => p.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            Property(p => p.Identity)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
-                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("IX_Identity") {IsUnique = true}));
-            Property(p => p.AggregateId)
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_AggregateId") {IsUnique = true}));
-            Property(p => p.RowVersion)
+            entity.HasKey(p => p.Id);
+            //entity.Property(p => p.Id)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //entity.Property(p => p.Identity)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
+            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("IX_Identity") { IsUnique = true }));
+            //entity.Property(p => p.AggregateId)
+            //    .HasColumnAnnotation("Index",
+            //        new IndexAnnotation(new IndexAttribute("IX_AggregateId") { IsUnique = true }));
+            entity.Property(p => p.RowVersion)
                 .IsConcurrencyToken()
                 .IsRowVersion();
+
+            ConfigureModel(entity);
         }
 
-        public void AddConfiguration(DbModelBuilder registrar)
-        {
-            registrar.Configurations.Add(this);
-        }
+        protected abstract void ConfigureModel(EntityTypeBuilder<TEntity> entity);
 
-        public void AddConfiguration(ConfigurationRegistrar registrar)
-        {
-            registrar.Add(this);
-        }
     }
 }

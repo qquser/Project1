@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Reflection;
 using Project1.ReadSide.Helpers;
 using Project1.ReadSide.Interfaces;
 using Project1.ReadSide.Models;
+using Microsoft.EntityFrameworkCore;
+using Project1.ReadSide.Mappings;
 
 namespace Project1.ReadSide
 {
@@ -22,19 +22,11 @@ namespace Project1.ReadSide
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.RemovePluralizingTableNameConvention();
 
-            var contextConfiguration = new ContextConfiguration();
-            var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
-            var container = new CompositionContainer(catalog);
-            container.ComposeParts(contextConfiguration);
-
-            foreach (var configuration in contextConfiguration.Configurations)
-            {
-                configuration.AddConfiguration(modelBuilder.Configurations);
-            }
+            modelBuilder.AddConfiguration(new ProjectModelConfiguration());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using Project1.ReadSide.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project1.ReadSide.Interfaces
 {
