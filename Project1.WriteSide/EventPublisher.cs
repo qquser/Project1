@@ -16,21 +16,21 @@ namespace Project1.WriteSide
             _bus = bus;// container.Get<IBusControl>();
         }
 
-        //public async Task PublishAsync1(dynamic e)
-        //{
-        //    var address = "rabbitmq://localhost/events";
-        //    var endpoint = await _bus.GetSendEndpoint(new Uri(address));
-        //    await endpoint.Send(e);
-        //}
-
-        public async Task PublishAsync<TMessage>(TMessage message,
-    CancellationToken cancellationToken = default(CancellationToken))
-    where TMessage : class
+        public async Task PublishAsync(dynamic e)
         {
             var address = "rabbitmq://localhost/events";
             var endpoint = await _bus.GetSendEndpoint(new Uri(address));
-            await endpoint.Send<TMessage>(message, cancellationToken);
+            await endpoint.Send(e);
         }
+
+        //    public async Task PublishAsync<TMessage>(TMessage message,
+        //CancellationToken cancellationToken = default(CancellationToken))
+        //where TMessage : class
+        //    {
+        //        var address = "rabbitmq://localhost/events";
+        //        var endpoint = await _bus.GetSendEndpoint(new Uri(address));
+        //        await endpoint.Send<TMessage>(message, cancellationToken);
+        //    }
 
     }
 }

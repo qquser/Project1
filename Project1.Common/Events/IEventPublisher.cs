@@ -8,6 +8,6 @@ namespace Project1.Common.Events
 {
     public interface IEventPublisher
     {
-        Task PublishAsync<TMessage>(TMessage e, CancellationToken cancellationToken) where TMessage : class;
+        Task PublishAsync(dynamic e);
     }
 }

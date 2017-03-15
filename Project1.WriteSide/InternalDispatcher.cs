@@ -25,7 +25,7 @@ namespace Project1.WriteSide
             foreach (var e in commit.Events)
             {
                 //var messageType = e.Body.GetType();
-                _publisher.PublishAsync(e.Body, default(CancellationToken));
+                _publisher.PublishAsync(e.Body);
             }
         }
     }
