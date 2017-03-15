@@ -15,6 +15,10 @@ namespace Project1.ReadSide
 {
     public class ModelContext : DbContext, IModelUpdater, IModelReader
     {
+        public ModelContext()
+        {
+
+        }
         public ModelContext(DbContextOptions<ModelContext> options)
             : base(options)
         {
@@ -38,7 +42,6 @@ namespace Project1.ReadSide
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.RemovePluralizingTableNameConvention();
-
             modelBuilder.AddConfiguration(new ProjectModelConfiguration());
         }
     }
