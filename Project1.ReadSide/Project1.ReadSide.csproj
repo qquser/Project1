@@ -182,6 +182,11 @@
     <Compile Include="Interfaces\IModelUpdater.cs" />
     <Compile Include="MapConfig.cs" />
     <Compile Include="Mappings\ProjectModelConfiguration.cs" />
+    <Compile Include="Migrations\20170315200543_InitialMigration.cs" />
+    <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
+      <DependentUpon>20170315200543_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Program.cs" />
@@ -195,7 +200,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
