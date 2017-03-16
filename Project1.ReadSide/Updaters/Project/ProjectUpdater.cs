@@ -5,6 +5,7 @@ using Project1.ReadSide.Helpers;
 using Project1.ReadSide.Interfaces;
 using Project1.ReadSide.Models;
 using MassTransit;
+using System.Linq;
 
 namespace Project1.ReadSide.Updaters.Project
 {

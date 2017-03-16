@@ -15,29 +15,26 @@ namespace Project1.ReadSide
 {
     public class ModelContext : DbContext, IModelUpdater, IModelReader
     {
-        public ModelContext()
-        {
+        public ModelContext() { }
 
-        }
         public ModelContext(DbContextOptions<ModelContext> options)
-            : base(options)
-        {
-        }
+        : base(options)   { }
+
 
         public virtual DbSet<ProjectModel> Projects { get; set; }
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
 
-        public Task<int> SaveChangesAsync()
+        async Task<int> IModelUpdater.SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return await SaveChangesAsync(); 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
-            options.UseSqlServer(connectionString);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

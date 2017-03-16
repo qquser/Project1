@@ -9,6 +9,7 @@ using Ninject.Extensions.Conventions;
 using Ninject.Extensions.NamedScope;
 using Topshelf;
 using Topshelf.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project1.ReadSide
 {
@@ -66,16 +67,22 @@ namespace Project1.ReadSide
             _kernel.Bind<StandardKernel>().ToConstant(_kernel).InSingletonScope();
             _kernel.Bind<ScopeObserver>().ToSelf().InThreadScope();
             _kernel.Bind<IMapper>().ToConstant(MapConfig.CreateMapper()).InSingletonScope();
+
+            string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
+            var optionsBuilder = new DbContextOptionsBuilder<ModelContext>().UseSqlServer(connectionString);
+
             _kernel.Bind<IModelUpdater>().To<ModelContext>().InScope(context =>
             {
                 var scopeObserver = context.Kernel.Get<ScopeObserver>();
                 return scopeObserver.Current;
-            });
+            }).WithConstructorArgument("options", optionsBuilder.Options);
+
             _kernel.Bind<IModelReader>().To<ModelContext>().InScope(context =>
             {
                 var scopeObserver = context.Kernel.Get<ScopeObserver>();
                 return scopeObserver.Current;
-            });
+            }).WithConstructorArgument("options", optionsBuilder.Options); ;
+
             _kernel.Bind(x => x
                 .FromThisAssembly()
                 .IncludingNonePublicTypes()

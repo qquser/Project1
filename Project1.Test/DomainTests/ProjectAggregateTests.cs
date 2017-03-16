@@ -17,7 +17,7 @@ namespace Project1.Test.DomainTests
     public class ProjectAggregateTests
     {
         [Test]
-        public void AddProject_Test()
+        public void AddProjectWriteSide_Test()
         {
             var projectGuid = Guid.NewGuid();
             var name = new ProjectName("name1");
@@ -35,7 +35,7 @@ namespace Project1.Test.DomainTests
         }
 
         [Test]
-        public void AddProject_Name_Test()
+        public void AddProjectWriteSide_Name_Test()
         {
             var projectGuid = Guid.NewGuid();
             var name = new ProjectName("name123");
@@ -53,7 +53,7 @@ namespace Project1.Test.DomainTests
             }
         } 
         [Test]
-        public void RenameProject_Test()
+        public void RenameProjectWriteSide_Test()
         {
             var projectGuid = Guid.NewGuid();
             var name = new ProjectName("name123");

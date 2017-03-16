@@ -18,7 +18,7 @@ namespace Project1.Test
             return Wireup.Init()
                         .LogToOutputWindow()
                         .UsingInMemoryPersistence()
-                        .UsingSqlPersistence("LocalDb")
+                        .UsingSqlPersistence("LocalDbWriteStore")
                         .WithDialect(new MsSqlDialect())
                         .EnlistInAmbientTransaction()
                         .InitializeStorageEngine()
