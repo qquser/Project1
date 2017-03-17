@@ -16,5 +16,6 @@ namespace Project1.Domain.Project.Events
         public Guid Id { get; }
         public string Name { get; }
         public ProjectStatus Status { get; }
+        public Guid CustomerId { get; }
     }
 }

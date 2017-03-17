@@ -176,23 +176,30 @@
   <ItemGroup>
     <Compile Include="Helpers\BaseModel.cs" />
     <Compile Include="Helpers\BaseModelConfiguration.cs" />
+    <Compile Include="Helpers\ContextConfiguration.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Interfaces\IModelConfiguration.cs" />
     <Compile Include="Interfaces\IModelReader.cs" />
     <Compile Include="Interfaces\IModelUpdater.cs" />
     <Compile Include="MapConfig.cs" />
+    <Compile Include="Mappings\CustomerModelConfiguration.cs" />
     <Compile Include="Mappings\ProjectModelConfiguration.cs" />
+    <Compile Include="Mappings\UserModelConfiguration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
       <DependentUpon>20170315200543_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeObserver.cs" />
+    <Compile Include="Updaters\Customer\CustomerUpdater.cs" />
     <Compile Include="Updaters\Project\ProjectUpdater.cs" />
+    <Compile Include="Updaters\User\UserUpdater.cs" />
     <Compile Include="UpdateService.cs" />
   </ItemGroup>
   <ItemGroup>

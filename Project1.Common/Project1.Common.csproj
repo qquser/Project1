@@ -40,21 +40,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Customer\IAddCustomer.cs" />
+    <Compile Include="Commands\Customer\IMakeCustomerInActive.cs" />
+    <Compile Include="Commands\Customer\IRenameCustomer.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\Project\IAddProject.cs" />
     <Compile Include="Commands\Project\IMakeProjectInActive.cs" />
     <Compile Include="Commands\Project\IRenameProject.cs" />
+    <Compile Include="Commands\User\IAddUser.cs" />
+    <Compile Include="Commands\User\IAssignUserToProject.cs" />
+    <Compile Include="Commands\User\IDemoteUser.cs" />
+    <Compile Include="Commands\User\IPromoteUser.cs" />
+    <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
+    <Compile Include="Enums\CustomerStatus.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
+    <Compile Include="Enums\UserRole.cs" />
+    <Compile Include="Events\Customer\ICustomerAdded.cs" />
+    <Compile Include="Events\Customer\ICustomerMarkedAdInActive.cs" />
+    <Compile Include="Events\Customer\ICustomerRenamed.cs" />
+    <Compile Include="Events\Customer\IProjectAddedToCustomer.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\IEventPublisher.cs" />
     <Compile Include="Events\Project\IProjectAdded.cs" />
     <Compile Include="Events\Project\IProjectMarkedAsInActive.cs" />
     <Compile Include="Events\Project\IProjectRenamed.cs" />
+    <Compile Include="Events\UserAdded\IUserAdded.cs" />
+    <Compile Include="Events\UserAdded\IUserAssignedToProject.cs" />
+    <Compile Include="Events\UserAdded\IUserDemoted.cs" />
+    <Compile Include="Events\UserAdded\IUserPromoted.cs" />
     <Compile Include="NonEmptyIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Customer\IGetAllCustomers.cs" />
+    <Compile Include="Queries\Customer\IGetCustomer.cs" />
+    <Compile Include="Queries\Project\IGetAllProjects.cs" />
+    <Compile Include="Queries\Project\IGetProject.cs" />
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

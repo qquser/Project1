@@ -19,7 +19,7 @@ namespace Project1.ReadSide
         private readonly StandardKernel _kernel = new StandardKernel();
 
         private IBusControl _busControl;
-        private BusHandle _busHandle;
+        //private BusHandle _busHandle;
 
         public bool Start(HostControl hostControl)
         {
@@ -57,7 +57,7 @@ namespace Project1.ReadSide
         {
             _logger.Info("Stopping bus...");
 
-            _busHandle?.Stop(TimeSpan.FromSeconds(30));
+            _busControl?.Stop(TimeSpan.FromSeconds(30));
 
             return true;
         }

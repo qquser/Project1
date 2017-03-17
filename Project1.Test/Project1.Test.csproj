@@ -132,7 +132,8 @@
   <ItemGroup>
     <Compile Include="ApplicationAPI\APICommonTests.cs" />
     <Compile Include="DomainTests\ProjectAggregateTests.cs" />
-    <Compile Include="ReadSideTests\ReadSideDbTests.cs" />
+    <Compile Include="ReadSideTests\ContextConfigurationTests.cs" />
+    <Compile Include="ReadSideTests\Project\ProjectUpdaterReadSideTests.cs" />
     <Compile Include="StoreConnections.cs" />
     <Compile Include="TestExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

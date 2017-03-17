@@ -8,5 +8,6 @@ namespace Project1.Common.Commands.Project
     {
         Guid Id { get; }
         string Name { get; }
+        Guid CustomerId { get; }
     }
 }

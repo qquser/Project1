@@ -12,5 +12,8 @@ namespace Project1.Application.API.Models.Project
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public Guid CustomerId { get; set; }
     }
 }

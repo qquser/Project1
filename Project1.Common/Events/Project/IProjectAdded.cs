@@ -9,6 +9,7 @@ namespace Project1.Common.Events.Project
     {
         Guid Id { get; }
         string Name { get; }
+        Guid CustomerId { get; }
         ProjectStatus Status { get; }
     }
 }

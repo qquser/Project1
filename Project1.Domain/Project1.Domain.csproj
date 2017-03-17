@@ -50,6 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateFactory.cs" />
+    <Compile Include="Customer\CustomerAggregate.cs" />
+    <Compile Include="Customer\Events\CustomerAdded.cs" />
+    <Compile Include="Customer\Events\CustomerMarkedAdInActive.cs" />
+    <Compile Include="Customer\Events\CustomerRenamed.cs" />
+    <Compile Include="Customer\Events\ProjectAddedToCustomer.cs" />
+    <Compile Include="Customer\Service\CustomerService.cs" />
+    <Compile Include="Customer\Service\ICustomerService.cs" />
+    <Compile Include="Customer\ValueObjects\CustomerName.cs" />
+    <Compile Include="Customer\ValueObjects\CustomerState.cs" />
     <Compile Include="IDomainService.cs" />
     <Compile Include="Project\Events\ProjectAdded.cs" />
     <Compile Include="Project\Events\ProjectMarkedAsInActive.cs" />
@@ -60,6 +69,15 @@
     <Compile Include="Project\ValueObjects\ProjectName.cs" />
     <Compile Include="Project\ValueObjects\ProjectState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\Events\UserAdded.cs" />
+    <Compile Include="User\Events\UserAssignedToProject.cs" />
+    <Compile Include="User\Events\UserDemoted.cs" />
+    <Compile Include="User\Events\UserPromoted.cs" />
+    <Compile Include="User\Service\IUserService.cs" />
+    <Compile Include="User\Service\UserService.cs" />
+    <Compile Include="User\UserAggregate.cs" />
+    <Compile Include="User\ValueObjects\UserName.cs" />
+    <Compile Include="User\ValueObjects\UserState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project1.Common\Project1.Common.csproj">

@@ -102,6 +102,7 @@ namespace Project1.Application.API.Controllers
         public Guid CommandId => _model.CommandId;
         public Guid Id => _model.ProjectId;
         public string Name => _model.Name;
+        public Guid CustomerId => _model.CustomerId;
     }
 
     class MakeProjectInActiveCommand : IMakeProjectInActive

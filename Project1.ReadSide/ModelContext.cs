@@ -21,9 +21,13 @@ namespace Project1.ReadSide
         : base(options)   { }
 
 
+        public virtual DbSet<CustomerModel> Customers { get; set; }
         public virtual DbSet<ProjectModel> Projects { get; set; }
+        //public virtual DbSet<UserModel> Users { get; set; }
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
+        IQueryable<CustomerModel> IModelReader.Customers => Customers.AsNoTracking();
+        //IQueryable<UserModel> IModelReader.Users => Users.AsNoTracking();
 
         async Task<int> IModelUpdater.SaveChangesAsync()
         {
@@ -39,7 +43,18 @@ namespace Project1.ReadSide
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.RemovePluralizingTableNameConvention();
-            modelBuilder.AddConfiguration(new ProjectModelConfiguration());
+            //modelBuilder.AddConfiguration(new ProjectModelConfiguration());
+            //var contextConfiguration = new ContextConfiguration();
+            //var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
+            //var container = new CompositionContainer(catalog);
+            //container.ComposeParts(contextConfiguration);
+
+            //foreach (var configuration in contextConfiguration.Configurations)
+            //{
+
+            //    //modelBuilder.AddConfiguration(configuration);
+            //    // configuration.AddConfiguration(modelBuilder.Configurations);
+            //}
         }
     }
 }

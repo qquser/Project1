@@ -7,8 +7,8 @@ using System;
 
 namespace Project1.ReadSide.Helpers
 {
-    //[InheritedExport(typeof(IModelConfiguration))]
-    internal abstract class BaseModelConfiguration<TEntity> : IModelConfiguration<TEntity>
+    [InheritedExport(typeof(IModelConfiguration<>))]
+    internal abstract class BaseModelConfiguration<TEntity> : IModelConfiguration<TEntity>, IModelConfiguration
         where TEntity : BaseModel
     {
 
@@ -17,13 +17,6 @@ namespace Project1.ReadSide.Helpers
             entity.HasKey(p => p.Id);
             entity.Property(p => p.Id).ValueGeneratedNever();
             entity.Property(p => p.Identity).ValueGeneratedOnAdd();
-                //.HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            //entity.Property(p => p.Identity)
-            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
-            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("IX_Identity") { IsUnique = true }));
-            //entity.Property(p => p.AggregateId)
-            //    .HasColumnAnnotation("Index",
-            //        new IndexAnnotation(new IndexAttribute("IX_AggregateId") { IsUnique = true }));
             entity.HasIndex(p => p.Identity).IsUnique();
             entity.HasIndex(p => p.AggregateId).IsUnique();
             entity.Property(p => p.RowVersion)
