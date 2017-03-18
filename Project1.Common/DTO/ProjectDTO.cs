@@ -11,5 +11,7 @@ namespace Project1.Common.DTO
         public string Name { get; set; }
         public ProjectStatus Status { get; set; }
         public List<Guid> AssignedUsersIds { get; set; }
+
+        public string CustomerId { get; set; }
     }
 }

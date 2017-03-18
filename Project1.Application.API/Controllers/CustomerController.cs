@@ -71,20 +71,22 @@ namespace Project1.Application.API.Controllers
             });
         }
 
-        public async Task<IActionResult> Get(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                ModelState.AddModelError(nameof(id), "Cannot be empty");
-            }
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //[HttpGet]
+        //public async Task<IActionResult> Get(Guid id)
+        //{
+        //    if (id == Guid.Empty)
+        //    {
+        //        ModelState.AddModelError(nameof(id), "Cannot be empty");
+        //    }
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            var query = new GetCustomer(id);
-            var result = await SendRequest<IGetCustomer, IGetCustomerResult>(query);
-            return Ok(result);
-        }
+        //    var query = new GetCustomer(id);
+        //    var result = await SendRequest<IGetCustomer, IGetCustomerResult>(query);
+        //    return Ok(result);
+        //}
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var query = new GetAllCustomers();

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-
+using System.Collections.Generic;
 
 namespace Project1.ConsoleClient
 {
@@ -17,13 +17,26 @@ namespace Project1.ConsoleClient
             do
             {
                 Console.WriteLine("1");
-                Task.Run(()=> CustomerAdd(Guid.NewGuid()));
+                Task.Run(()=> CustomerGet());
                 Console.WriteLine("sended");
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);
 
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
             // ProjectAdd(Guid.NewGuid());
+            //Console.ReadKey();
+        }
+
+        private static async Task CustomerGet()
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/customer", Method.GET);
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(client, request) as RestResponse;
+            //var jsonResponse = JsonConvert.DeserializeObject<List<string>>(response.Content);
+            Console.WriteLine(response.Content);
+            Console.WriteLine("________________");
+            //Console.WriteLine(jsonResponse);
             //Console.ReadKey();
         }
 

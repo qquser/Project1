@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.Project;
 using Project1.Common.Commands.Project;
+using Project1.Common.Queries.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,10 +68,45 @@ namespace Project1.Application.API.Controllers
                 Timestamp = command.Timestamp
             });
         }
+                     
+        //public async Task<IActionResult> Get(Guid id)
+        //{
+        //    if (id == Guid.Empty)
+        //    {
+        //        ModelState.AddModelError(nameof(id), "Cannot be empty");
+        //    }
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var query = new GetProject(id);
+        //    var result = await SendRequest<IGetProject, IGetProjectResult>(query);
+        //    return Ok(result);
+        //}
+              
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var query = new GetAllProjects();
+            var result = await SendRequest<IGetAllProjects, IGetAllProjectsResult>(query);
+            return Ok(result);
+        }
 
 
     }
 
+    class GetAllProjects : IGetAllProjects
+    {
+    }
+
+    class GetProject : IGetProject
+    {
+        public GetProject(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; }
+    }
 
     class RenameProjectCommand : IRenameProject
     {
