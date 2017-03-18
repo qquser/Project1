@@ -17,13 +17,26 @@ namespace Project1.ConsoleClient
             do
             {
                 Console.WriteLine("1");
-                Task.Run(()=>ProjectAdd(Guid.NewGuid()));
+                Task.Run(()=> CustomerAdd(Guid.NewGuid()));
                 Console.WriteLine("sended");
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);
 
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
             // ProjectAdd(Guid.NewGuid());
+            //Console.ReadKey();
+        }
+
+        private static async Task CustomerAdd(Guid id)
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/customer", Method.POST);
+            request.AddParameter("Id", id);
+            request.AddParameter("Name", "New1");
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(client, request) as RestResponse;
+
+            Console.WriteLine(response.Content);
             //Console.ReadKey();
         }
 

@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Project1.WriteSide.Handlers.User
 {
-    internal class UserHandler :
+    public class UserHandler :
         IConsumer<IAddUser>,
         IConsumer<IAssignUserToProject>,
         IConsumer<IPromoteUser>,

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DDD.SimpleExample.Application.API.Models.Customer
+namespace Project1.Application.API.Models.Customer
 {
     public class AddCustomerModel
     {

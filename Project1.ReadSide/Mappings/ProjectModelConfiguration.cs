@@ -10,9 +10,9 @@ namespace Project1.ReadSide.Mappings
     {
         protected override void ConfigureModel(EntityTypeBuilder<ProjectModel> entity)
         {
-            //entity.HasOne(p => p.CustomerModel)
-            //.WithMany(b => b.Projects)
-            //.HasForeignKey(p => p.CustomerId);
+            entity.HasOne(p => p.CustomerModel)
+            .WithMany(b => b.Projects)
+            .HasForeignKey(p => p.CustomerId);
         }
     }
 }

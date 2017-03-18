@@ -9,9 +9,10 @@ using Project1.Common.Enums;
 namespace Project1.ReadSide.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20170318080745_Customer")]
+    partial class Customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -51,7 +52,7 @@ namespace Project1.ReadSide.Migrations
 
                     b.Property<Guid>("AggregateId");
 
-                    b.Property<string>("CustomerId");
+                    b.Property<string>("CustomerModelId");
 
                     b.Property<long>("Identity")
                         .ValueGeneratedOnAdd();
@@ -69,7 +70,7 @@ namespace Project1.ReadSide.Migrations
                     b.HasIndex("AggregateId")
                         .IsUnique();
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerModelId");
 
                     b.HasIndex("Identity")
                         .IsUnique();
@@ -79,9 +80,9 @@ namespace Project1.ReadSide.Migrations
 
             modelBuilder.Entity("Project1.ReadSide.Models.ProjectModel", b =>
                 {
-                    b.HasOne("Project1.ReadSide.Models.CustomerModel", "CustomerModel")
+                    b.HasOne("Project1.ReadSide.Models.CustomerModel")
                         .WithMany("Projects")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerModelId");
                 });
         }
     }

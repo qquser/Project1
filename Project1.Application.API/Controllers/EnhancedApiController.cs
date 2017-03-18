@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Project1.Application.API.Controllers
 {
-
     public abstract class EnhancedApiController : Controller
     {
         //protected IHttpActionResult Accepted<T>(T value)

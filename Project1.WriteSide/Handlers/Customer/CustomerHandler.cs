@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Project1.WriteSide.Handlers.Customer
 {
-    internal class CustomerHandler :
+    public class CustomerHandler :
         IConsumer<IAddCustomer>,
         IConsumer<IMakeCustomerInActive>,
         IConsumer<IRenameCustomer>

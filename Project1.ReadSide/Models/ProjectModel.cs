@@ -16,8 +16,8 @@ namespace Project1.ReadSide.Models
         public string Name { get; set; }
         public ProjectStatus Status { get; set; }
 
-        //public string CustomerId { get; set; }
-        //public CustomerModel CustomerModel { get; set; }
-        //public ICollection<UserModel> AssignedUsers { get; set; }
+        public string CustomerId { get; set; }
+        public CustomerModel CustomerModel { get; set; }
+        public ICollection<UserModel> AssignedUsers { get; set; }
     }
 }

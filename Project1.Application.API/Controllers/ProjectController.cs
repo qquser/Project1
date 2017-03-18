@@ -13,10 +13,11 @@ namespace Project1.Application.API.Controllers
     [Route("api/[controller]")]
     public class ProjectController : EnhancedApiController
     {
+        [HttpPost]
         public async Task<IActionResult> Post(AddProjectModel model)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                return BadRequest(ModelState); 
 
             if (model.CommandId == Guid.Empty)
                 model.CommandId = NewId.NextGuid();

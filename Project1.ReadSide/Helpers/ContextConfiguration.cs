@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Project1.ReadSide.Helpers
 {
-    internal class ContextConfiguration<TEntity> where TEntity: BaseModel
+    internal class ContextConfiguration
     {
         [ImportMany(typeof(IModelConfiguration<>))]
-        public IEnumerable<IModelConfiguration<TEntity>> Configurations  { get; set; }  
+        public IEnumerable<IModelConfiguration<BaseModel>> Configurations  { get; set; }
     }
 }

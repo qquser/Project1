@@ -34,27 +34,21 @@ namespace Project1.ReadSide
             return await SaveChangesAsync(); 
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
-        //    optionsBuilder.UseSqlServer(connectionString);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
+            optionsBuilder.UseSqlServer(connectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.RemovePluralizingTableNameConvention();
-            //modelBuilder.AddConfiguration(new ProjectModelConfiguration());
-            //var contextConfiguration = new ContextConfiguration();
-            //var catalog = new AssemblyCatalog(Assembly.GetExecutingAssembly());
-            //var container = new CompositionContainer(catalog);
-            //container.ComposeParts(contextConfiguration);
 
-            //foreach (var configuration in contextConfiguration.Configurations)
-            //{
-
-            //    //modelBuilder.AddConfiguration(configuration);
-            //    // configuration.AddConfiguration(modelBuilder.Configurations);
-            //}
+            modelBuilder.AddConfiguration(new ProjectModelConfiguration());
+            modelBuilder.AddConfiguration(new CustomerModelConfiguration());
         }
+  
     }
+
+
 }

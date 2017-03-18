@@ -189,6 +189,14 @@
     <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
       <DependentUpon>20170315200543_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170318080745_Customer.cs" />
+    <Compile Include="Migrations\20170318080745_Customer.designer.cs">
+      <DependentUpon>20170318080745_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170318081618_ProjectCustomer.cs" />
+    <Compile Include="Migrations\20170318081618_ProjectCustomer.designer.cs">
+      <DependentUpon>20170318081618_ProjectCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CustomerModel.cs" />

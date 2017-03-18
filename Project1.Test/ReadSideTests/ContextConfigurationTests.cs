@@ -20,23 +20,53 @@ namespace Project1.Test.ReadSideTests
         [Test]
         public void ContextConfiguration_Test()
         {
-            var generic = typeof(ContextConfiguration<>);
-            Type[] typeArgs = { typeof(ProjectModel), typeof(CustomerModel), typeof(UserModel) };
-            var makeme = generic.MakeGenericType(typeArgs);
+            //Type type = typeof(ProjectModel);
+            //Type[] typeArgs = { type };
+            //var generic = typeof(ContextConfiguration<>).MakeGenericType(type);
 
-            //var contextConfiguration = Activator.CreateInstance(makeme);//new ContextConfiguration<BaseModel>();
-            //var catalog = new AssemblyCatalog(Assembly.GetAssembly(typeof(UpdateService)));
-            //var container = new CompositionContainer(catalog);
-            //container.ComposeParts(contextConfiguration);
 
-            //foreach (var configuration in contextConfiguration.Configurations)
-            //{
-            //    var test = configuration;
-            //}
-            
+            var contextConfig = new ContextConfiguration();//generic.GetMethod("Instance");//Activator.CreateInstance(generic);
+            var catalog = new AssemblyCatalog(Assembly.GetAssembly(typeof(UpdateService)));
+            var container = new CompositionContainer(catalog);
+
+            //var qweqwe = typeof(ContextConfigurationTests).GetMethod("Configs", BindingFlags.NonPublic |
+            //             BindingFlags.Static);
+            //var t = qweqwe.MakeGenericMethod(typeof(ProjectModel));
+            //var qwe= t.Invoke(null, null);
+            container.ComposeParts(contextConfig);
+
+            foreach (var configuration in contextConfig.Configurations)
+            {
+                var test = configuration;
+            }
+
 
             Assert.AreEqual(1,0);
         }
+
+
+        //static ContextConfiguration<T> Evil<T>(ContextConfiguration<T> contextConfiguration) where T : BaseModel
+        //{   // in here, life is simple; no more reflection
+        //    return contextConfiguration;
+        //}
+
+        //static ContextConfiguration<TEntity> Configs<TEntity>(object contextConfiguration) where TEntity : BaseModel
+        //{
+        //    if (contextConfiguration is ContextConfiguration<TEntity>)
+        //    {
+        //        return (ContextConfiguration<TEntity>)contextConfiguration;
+        //    }
+
+        //    try
+        //    {
+        //        return (ContextConfiguration<TEntity>)Convert.ChangeType(contextConfiguration, typeof(ContextConfiguration<TEntity>));
+        //    }
+        //    catch (InvalidCastException)
+        //    {
+        //        return default(ContextConfiguration<TEntity>);
+        //    }           
+
+        //}
 
 
     }
