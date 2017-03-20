@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MassTransit;
 using MassTransit.Util;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+//using Microsoft.AspNetCore.SignalR;
 
 namespace Project1.Application.API
 {
@@ -40,6 +43,14 @@ namespace Project1.Application.API
             // Add framework services.
             services.AddMvc();
             //services.AddSingleton<IConfiguration>(Configuration);
+
+            var settings = new JsonSerializerSettings();
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            var serializer = JsonSerializer.Create(settings);
+            services.Add(new ServiceDescriptor(typeof(JsonSerializer),
+                         provider => serializer,
+                         ServiceLifetime.Transient));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +60,9 @@ namespace Project1.Application.API
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            app.UseWebSockets();
+            app.UseSignalR();
         }
 
         public Uri GetHostAddress()
