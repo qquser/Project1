@@ -17,7 +17,8 @@ namespace Project1.ConsoleClient
             do
             {
                 Console.WriteLine("1");
-                Task.Run(()=> CustomerGet());
+                //Task.Run(()=> CustomerGet());
+                Task.Run(() => CustomerAdd(Guid.NewGuid()));
                 Console.WriteLine("sended");
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);

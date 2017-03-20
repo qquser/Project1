@@ -207,6 +207,7 @@
     <Compile Include="Readers\CustomerReader.cs" />
     <Compile Include="Readers\ProjectReader.cs" />
     <Compile Include="ScopeObserver.cs" />
+    <Compile Include="Updaters\MessagePublisher.cs" />
     <Compile Include="Updaters\Customer\CustomerUpdater.cs" />
     <Compile Include="Updaters\Project\ProjectUpdater.cs" />
     <Compile Include="Updaters\User\UserUpdater.cs" />

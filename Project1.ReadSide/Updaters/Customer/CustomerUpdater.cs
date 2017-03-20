@@ -5,19 +5,21 @@ using Project1.ReadSide.Helpers;
 using Project1.ReadSide.Interfaces;
 using Project1.ReadSide.Models;
 using MassTransit;
+using Project1.Common.Messages;
 
 namespace Project1.ReadSide.Updaters.Customer
 {
-    public class CustomerUpdater :
+    public class CustomerUpdater : 
         IConsumer<ICustomerAdded>,
         IConsumer<ICustomerRenamed>,
         IConsumer<ICustomerMarkedAsInActive>
-
     {
         private readonly IModelUpdater _context;
+        private readonly IMessagePublisher _messagePublisher;
 
-        public CustomerUpdater(IModelUpdater context)
+        public CustomerUpdater(IModelUpdater context, IMessagePublisher messagePublisher) 
         {
+            _messagePublisher = messagePublisher;
             _context = context;
         }
 
@@ -31,6 +33,8 @@ namespace Project1.ReadSide.Updaters.Customer
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
             _context.Dispose();
+
+            await _messagePublisher.PublishMessageAsync(context.Message);
         }
 
         public async Task Consume(ConsumeContext<ICustomerRenamed> context)

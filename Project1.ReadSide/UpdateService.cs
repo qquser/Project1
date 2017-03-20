@@ -10,6 +10,9 @@ using Ninject.Extensions.NamedScope;
 using Topshelf;
 using Topshelf.Logging;
 using Microsoft.EntityFrameworkCore;
+using Project1.Common.Messages;
+using Project1.ReadSide.Updaters;
+using Ninject.Activation.Providers;
 
 namespace Project1.ReadSide
 {
@@ -24,25 +27,9 @@ namespace Project1.ReadSide
         public bool Start(HostControl hostControl)
         {
             _logger.Info("Creating bus...");
+
+
             ConfigureContainer();
-            _busControl = Bus.Factory.CreateUsingRabbitMq(x =>
-            {
-                var host = x.Host(GetHostAddress(), h =>
-                {
-                    h.Username(ConfigurationManager.AppSettings["RabbitMQUsername"]);
-                    h.Password(ConfigurationManager.AppSettings["RabbitMQPassword"]);
-                });
-
-                x.ReceiveEndpoint(host, "events", e =>
-                {
-                    e.LoadFrom(_kernel);
-                });
-
-                x.ReceiveEndpoint(host, "requests", e =>
-                {
-                    e.LoadFrom(_kernel);
-                });
-            });
 
             var observer = _kernel.Get<ScopeObserver>();
             _busControl.ConnectReceiveObserver(observer);
@@ -64,6 +51,34 @@ namespace Project1.ReadSide
 
         private void ConfigureContainer()
         {
+            _kernel.Bind(x => x
+                .FromThisAssembly()
+                .IncludingNonePublicTypes()
+                .SelectAllClasses()
+                .InheritedFrom(typeof(IConsumer))
+                .BindToSelf());
+
+
+            _busControl = Bus.Factory.CreateUsingRabbitMq(x =>
+            {
+                var host = x.Host(GetHostAddress(), h =>
+                {
+                    h.Username(ConfigurationManager.AppSettings["RabbitMQUsername"]);
+                    h.Password(ConfigurationManager.AppSettings["RabbitMQPassword"]);
+                });
+
+                x.ReceiveEndpoint(host, "events", e =>
+                {
+                    e.LoadFrom(_kernel);
+                });
+
+                x.ReceiveEndpoint(host, "requests", e =>
+                {
+                    e.LoadFrom(_kernel);
+                });
+            });
+            _kernel.Bind<IMessagePublisher>().To<MessagePublisher>();
+
             _kernel.Bind<StandardKernel>().ToConstant(_kernel).InSingletonScope();
             _kernel.Bind<ScopeObserver>().ToSelf().InThreadScope();
             _kernel.Bind<IMapper>().ToConstant(MapConfig.CreateMapper()).InSingletonScope();
@@ -81,14 +96,18 @@ namespace Project1.ReadSide
             {
                 var scopeObserver = context.Kernel.Get<ScopeObserver>();
                 return scopeObserver.Current;
-            }).WithConstructorArgument("options", optionsBuilder.Options); ;
+            }).WithConstructorArgument("options", optionsBuilder.Options);
 
-            _kernel.Bind(x => x
-                .FromThisAssembly()
-                .IncludingNonePublicTypes()
-                .SelectAllClasses()
-                .InheritedFrom(typeof(IConsumer))
-                .BindToSelf());
+            _kernel.Bind<IBusControl>()
+          .ToConstant(_busControl)
+          .InSingletonScope();
+
+            _kernel.Bind<IBus>()
+                .ToProvider(new CallbackProvider<IBus>(x => x.Kernel.Get<IBusControl>()));
+
+
+
+
         }
 
         static Uri GetHostAddress()
