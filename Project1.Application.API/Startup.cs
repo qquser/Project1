@@ -11,7 +11,7 @@ using MassTransit;
 using MassTransit.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-//using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Project1.Application.API
 {
@@ -40,6 +40,10 @@ namespace Project1.Application.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
             // Add framework services.
             services.AddMvc();
             //services.AddSingleton<IConfiguration>(Configuration);
