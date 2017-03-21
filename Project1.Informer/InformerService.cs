@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MassTransit.Util;
+using Microsoft.AspNet.SignalR.Client;
 using Ninject;
 using Ninject.Activation.Providers;
 using Ninject.Extensions.Conventions;
@@ -26,6 +27,7 @@ namespace Project1.Informer
         {
             _logger.Info("Creating bus...");
             ConfigureContainer();
+            ConfigureSignalR();
 
             _busControl = _kernel.Get<IBusControl>();
             _logger.Info("Starting bus...");
@@ -34,6 +36,18 @@ namespace Project1.Informer
             TaskUtil.Await(() => _busControl.StartAsync());
 
             return true;
+        }
+
+        private void ConfigureSignalR()
+        {
+
+            string url = ConfigurationManager.AppSettings["ApiUrl"];
+            var connection = new HubConnection(url);
+            IHubProxy hub = connection.CreateHubProxy("TestHub");
+            connection.Start().Wait();
+
+            _kernel.Bind<IHubProxy>()
+              .ToConstant(hub).InSingletonScope();
         }
 
         private void ConfigureContainer()
@@ -74,7 +88,6 @@ namespace Project1.Informer
             _kernel.Bind<IBus>()
                 .ToProvider(new CallbackProvider<IBus>(x => x.Kernel.Get<IBusControl>()));
 
-      
         }
 
         static Uri GetHostAddress()

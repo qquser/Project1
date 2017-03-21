@@ -22,7 +22,7 @@ namespace Project1.Informer.MessageHandlers
 
         public async Task Consume(ConsumeContext<ICustomerAdded> context)
         {
-            await Task.Run(() => _service.SendInfoCustomerAdded(context.Message));
+            await Task.Run(()=> _service.SendInfoCustomerAdded(context.Message));
         }
     }
 }

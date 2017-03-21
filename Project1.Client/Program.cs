@@ -4,20 +4,22 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
+using Microsoft.AspNet.SignalR.Client;
 
-namespace Project1.ConsoleClient
+namespace Project1.Client
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello .net core!");
+            Console.WriteLine("Hello .net client!");
+            IncommingData();
             Console.ReadKey();
             ConsoleKeyInfo input;
             do
             {
                 Console.WriteLine("1");
-                //Task.Run(()=> CustomerGet());
+                //Task.Run(() => CustomerGet());
                 Task.Run(() => CustomerAdd(Guid.NewGuid()));
                 Console.WriteLine("sended");
                 input = Console.ReadKey();
@@ -26,6 +28,17 @@ namespace Project1.ConsoleClient
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
             // ProjectAdd(Guid.NewGuid());
             //Console.ReadKey();
+        }
+
+        private static void IncommingData()
+        {
+            string url = @"http://localhost:49987/";
+            var connection = new HubConnection(url);
+            IHubProxy hub = connection.CreateHubProxy("TestHub");
+            connection.Start().Wait();
+            hub.On("ReceiveLength", x => Console.WriteLine("IncommingData2: " + x));
+
+
         }
 
         private static async Task CustomerGet()
@@ -46,7 +59,7 @@ namespace Project1.ConsoleClient
             var client = new RestClient("http://localhost:49987/");
             var request = new RestRequest($"api/customer", Method.POST);
             request.AddParameter("Id", id);
-            request.AddParameter("Name", "New1");
+            request.AddParameter("Name", "NewCustomerName2");
             var response = new RestResponse();
             response = await GetResponseContentAsync(client, request) as RestResponse;
 
@@ -96,7 +109,7 @@ namespace Project1.ConsoleClient
 
         }
 
-        public static  Task<IRestResponse> GetResponseContentAsync(RestClient theClient, RestRequest theRequest)
+        public static Task<IRestResponse> GetResponseContentAsync(RestClient theClient, RestRequest theRequest)
         {
             var tcs = new TaskCompletionSource<IRestResponse>();
             theClient.ExecuteAsync(theRequest, response => {
