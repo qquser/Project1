@@ -3,7 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNet.SignalR.Infrastructure;
 
-namespace Project1.Application.API
+namespace Project1.Application.API.Helpers
 {
     public class SignalRContractResolver : IContractResolver
     {

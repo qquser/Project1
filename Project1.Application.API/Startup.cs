@@ -12,6 +12,7 @@ using MassTransit.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Project1.Application.API.Helpers;
 
 namespace Project1.Application.API
 {
@@ -47,6 +48,8 @@ namespace Project1.Application.API
             // Add framework services.
             services.AddMvc();
             //services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddSingleton<IHashing, Hashing>();
 
             var settings = new JsonSerializerSettings();
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
