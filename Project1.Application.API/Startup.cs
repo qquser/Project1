@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Project1.Application.API.Helpers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Project1.Application.API
 {
@@ -49,6 +50,8 @@ namespace Project1.Application.API
             services.AddMvc();
             //services.AddSingleton<IConfiguration>(Configuration);
 
+    
+
             services.AddSingleton<IHashing, Hashing>();
 
             var settings = new JsonSerializerSettings();
@@ -66,10 +69,40 @@ namespace Project1.Application.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    // укзывает, будет ли валидироваться издатель при валидации токена
+                    ValidateIssuer = true,
+                    // строка, представляющая издателя
+                    ValidIssuer = AuthOptions.ISSUER,
+
+                    // будет ли валидироваться потребитель токена
+                    ValidateAudience = true,
+                    // установка потребителя токена
+                    ValidAudience = AuthOptions.AUDIENCE,
+                    // будет ли валидироваться время существования
+                    ValidateLifetime = true,
+
+                    // установка ключа безопасности
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    // валидация ключа безопасности
+                    ValidateIssuerSigningKey = true,
+
+                    //ClockSkew = TimeSpan.Zero
+                }
+            });
             app.UseMvc();
 
             app.UseWebSockets();
             app.UseSignalR();
+
+ 
         }
 
         public Uri GetHostAddress()
