@@ -9,9 +9,10 @@ using Project1.Common.Enums;
 namespace Project1.ReadSide.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20170327125859_UserTable")]
+    partial class UserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -111,16 +112,12 @@ namespace Project1.ReadSide.Migrations
 
                     b.Property<Guid>("AggregateId");
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("FirstName");
 
                     b.Property<long>("Identity")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("LastName");
-
-                    b.Property<string>("PasswordHash");
 
                     b.Property<string>("RoleId");
 

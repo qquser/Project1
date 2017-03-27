@@ -8,7 +8,9 @@ namespace Project1.ReadSide.Interfaces
     public interface IModelUpdater : IDisposable
     {
         DbSet<ProjectModel> Projects { get; }
+        DbSet<UserModel> Users { get; }
         DbSet<CustomerModel> Customers { get; }
+        DbSet<RoleModel> Roles { get; }
         Task<int> SaveChangesAsync();
     }
 }

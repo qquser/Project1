@@ -16,8 +16,8 @@ namespace Project1.ReadSide
                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
                 c.CreateMap<ProjectModel, ProjectDTO>()
                     .ForMember(s => s.CustomerId, opt => opt.MapFrom(src => src.CustomerModel.AggregateId))
-                    .ForMember(s => s.AssignedUsersIds,
-                        opt => opt.MapFrom(src => src.AssignedUsers.Select(x => x.AggregateId)))
+                    //.ForMember(s => s.AssignedUsersIds,
+                    //    opt => opt.MapFrom(src => src.AssignedUsers.Select(x => x.AggregateId)))
                     .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
             });
             config.AssertConfigurationIsValid();

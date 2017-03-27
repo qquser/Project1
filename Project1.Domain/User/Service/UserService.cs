@@ -13,16 +13,9 @@ namespace Project1.Domain.User.Service
             _repository = repository;
         }
 
-        public void Add(Guid id, string firstName, string lastName)
+        public void Add(Guid id, string email, string hash)
         {
-            var user = UserAggregate.Add(id, firstName, lastName);
-            _repository.Save(user, Guid.NewGuid(), null);
-        }
-
-        public void AssignToProject(Guid userId, Guid projectId)
-        {
-            var user = _repository.GetById<UserAggregate>(userId);
-            user.AssignToProject(new NonEmptyIdentity(userId));
+            var user = UserAggregate.Add(id, email, hash);
             _repository.Save(user, Guid.NewGuid(), null);
         }
 

@@ -50,10 +50,6 @@ namespace Project1.Application.API
             services.AddMvc();
             //services.AddSingleton<IConfiguration>(Configuration);
 
-    
-
-            services.AddSingleton<IHashing, Hashing>();
-
             var settings = new JsonSerializerSettings();
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 

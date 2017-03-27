@@ -187,6 +187,7 @@
     <Compile Include="MapConfig.cs" />
     <Compile Include="Mappings\CustomerModelConfiguration.cs" />
     <Compile Include="Mappings\ProjectModelConfiguration.cs" />
+    <Compile Include="Mappings\RoleModelConfiguration.cs" />
     <Compile Include="Mappings\UserModelConfiguration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
@@ -200,10 +201,23 @@
     <Compile Include="Migrations\20170318081618_ProjectCustomer.designer.cs">
       <DependentUpon>20170318081618_ProjectCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170327121258_RoleTable.cs" />
+    <Compile Include="Migrations\20170327121258_RoleTable.designer.cs">
+      <DependentUpon>20170327121258_RoleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170327125859_UserTable.cs" />
+    <Compile Include="Migrations\20170327125859_UserTable.designer.cs">
+      <DependentUpon>20170327125859_UserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170327133102_UserEmail.cs" />
+    <Compile Include="Migrations\20170327133102_UserEmail.designer.cs">
+      <DependentUpon>20170327133102_UserEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

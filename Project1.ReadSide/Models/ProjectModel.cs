@@ -18,6 +18,6 @@ namespace Project1.ReadSide.Models
 
         public string CustomerId { get; set; }
         public CustomerModel CustomerModel { get; set; }
-        public ICollection<UserModel> AssignedUsers { get; set; }
+        //public ICollection<UserModel> AssignedUsers { get; set; }
     }
 }

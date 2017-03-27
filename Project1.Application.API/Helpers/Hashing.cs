@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Helpers
 {
-    public class Hashing : IHashing
+    public static class Hashing
     {
-        public string GetRandomSalt()
+        public static string GetRandomSalt()
         {
             return BCrypt.Net.BCrypt.GenerateSalt(5);
         }
 
-        public string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password, GetRandomSalt());
         }
 
-        public bool ValidatePassword(string password, string correctHash)
+        public static bool ValidatePassword(string password, string correctHash)
         {
             return BCrypt.Net.BCrypt.Verify(password, correctHash);
         }

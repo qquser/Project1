@@ -5,21 +5,22 @@ namespace Project1.Domain.User.ValueObjects
 {
     public class UserName
     {
-        public ValueObject<string> FirstName { get; }
-        public ValueObject<string> LastName { get; }
+        public ValueObject<string> Email { get; }
+        public ValueObject<string> PasswordHash { get; }
 
-        public UserName(string firstName, string lastName)
+
+        public UserName(string email, string hash)
         {
-            if (string.IsNullOrEmpty(firstName))
+            if (string.IsNullOrEmpty(email))
             {
-                throw new ArgumentNullException(firstName);
+                throw new ArgumentNullException(email);
             }
-            if (string.IsNullOrEmpty(lastName))
+            if (string.IsNullOrEmpty(hash))
             {
-                throw new ArgumentNullException(lastName);
+                throw new ArgumentNullException(hash);
             }
-            FirstName = firstName;
-            LastName = lastName;
+            Email = email;
+            PasswordHash = hash;
         }
     }
 }

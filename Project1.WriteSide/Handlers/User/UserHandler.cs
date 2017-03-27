@@ -6,8 +6,7 @@ using MassTransit;
 namespace Project1.WriteSide.Handlers.User
 {
     public class UserHandler :
-        IConsumer<IAddUser>,
-        IConsumer<IAssignUserToProject>,
+        IConsumer<IRegisterUser>,
         IConsumer<IPromoteUser>,
         IConsumer<IDemoteUser>
     {
@@ -18,15 +17,13 @@ namespace Project1.WriteSide.Handlers.User
             _service = service;
         }
 
-        public async Task Consume(ConsumeContext<IAddUser> context)
+
+        public async Task Consume(ConsumeContext<IRegisterUser> context)
         {
-            await Task.Run(() => _service.Add(context.Message.Id, context.Message.FirstName, context.Message.LastName));
+            await Task.Run(() => _service.Add(context.Message.Id, context.Message.Email, context.Message.PasswordHash));
         }
 
-        public async Task Consume(ConsumeContext<IAssignUserToProject> context)
-        {
-            await Task.Run(() => _service.AssignToProject(context.Message.UserId, context.Message.ProjectId));
-        }
+    
 
         public async Task Consume(ConsumeContext<IPromoteUser> context)
         {

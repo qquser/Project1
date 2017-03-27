@@ -8,7 +8,6 @@ namespace Project1.Domain.User.ValueObjects
     {
         public NonEmptyIdentity Id { get; set; }
         public UserName UserName { get; set; }
-        public UserRole Role { get; set; }
-        public List<NonEmptyIdentity> AssignedProjectIds { get; set; } = new List<NonEmptyIdentity>();
+        public string RoleName { get; set; }
     }
 }

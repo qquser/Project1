@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Project1.Application.API.Helpers;
 using Project1.Application.API.Models;
+using Project1.Application.API.Models.User;
+using Project1.Common.Commands.User;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,11 +19,31 @@ namespace Project1.Application.API.Controllers
     [Route("api/[controller]")]
     public class AccountController : EnhancedApiController
     {
-        private List<Person> people = new List<Person>
+        private List<Person> _people = new List<Person>
         {
             new Person {Login="admin@gmail.com", Password="12345", Role = "admin" },
             new Person { Login="qwerty", Password="55555", Role = "user" }
         };
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register(RegisterUserModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (model.CommandId == Guid.Empty)
+                model.CommandId = NewId.NextGuid();
+
+            var command = new RegisterUserCommand(model);
+            await Send(command);
+
+            return Accepted(new PostResult<RegisterUserCommand>()
+            {
+                CommandId = command.Id,
+                Timestamp = command.Timestamp
+            });
+        }
 
         [HttpPost("/token")]
         public async Task Token()
@@ -61,7 +84,7 @@ namespace Project1.Application.API.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            Person person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
+            Person person = _people.FirstOrDefault(x => x.Login == username && x.Password == password);
             if (person != null)
             {
                 var claims = new List<Claim>
@@ -79,5 +102,23 @@ namespace Project1.Application.API.Controllers
             return null;
         }
 
+    }
+
+    class RegisterUserCommand : IRegisterUser
+    {
+        private readonly RegisterUserModel _model;
+
+        public RegisterUserCommand(RegisterUserModel model)
+        {
+            _model = model;
+            Timestamp = DateTime.UtcNow;
+        }
+
+        public Guid Id => _model.Id;
+        public string Email => _model.Email;
+        public string PasswordHash => Hashing.HashPassword(_model.ConfirmPassword);
+
+        public DateTime Timestamp { get; }
+        public Guid CommandId => _model.CommandId;
     }
 }

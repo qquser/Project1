@@ -37,7 +37,7 @@ namespace Project1.ReadSide.Readers
         public async Task Consume(ConsumeContext<IGetProject> context)
         {
             var project = _mapper.Map<ProjectDTO>(_reader.Projects
-                .Include(x => x.AssignedUsers)
+                //.Include(x => x.AssignedUsers)
                 .Include(x => x.CustomerModel)
                 .FirstOrDefault(x => x.AggregateId == context.Message.Id));
             var respond = new GetProjectResult(project);

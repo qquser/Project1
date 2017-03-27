@@ -16,7 +16,14 @@ namespace Project1.ReadSide.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public ICollection<ProjectModel> AssignedProjects { get; set; }
-        public UserRole Role { get; set; }
+
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
+        public UserStatus Status { get; set; }
+
+        public string RoleId { get; set; }
+        public RoleModel RoleModel { get; set; }
+
+        //public UserRole Role { get; set; }
     }
 }

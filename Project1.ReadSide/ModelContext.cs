@@ -18,16 +18,21 @@ namespace Project1.ReadSide
         public ModelContext() { }
 
         public ModelContext(DbContextOptions<ModelContext> options)
-        : base(options)   { }
+        : base(options)
+        {
+        }
 
 
         public virtual DbSet<CustomerModel> Customers { get; set; }
         public virtual DbSet<ProjectModel> Projects { get; set; }
-        //public virtual DbSet<UserModel> Users { get; set; }
+        public virtual DbSet<UserModel> Users { get; set; }
+
+        public virtual DbSet<RoleModel> Roles { get; set; }
+
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
         IQueryable<CustomerModel> IModelReader.Customers => Customers.AsNoTracking();
-        //IQueryable<UserModel> IModelReader.Users => Users.AsNoTracking();
+        IQueryable<UserModel> IModelReader.Users => Users.AsNoTracking();
 
         async Task<int> IModelUpdater.SaveChangesAsync()
         {
@@ -46,6 +51,9 @@ namespace Project1.ReadSide
 
             modelBuilder.AddConfiguration(new ProjectModelConfiguration());
             modelBuilder.AddConfiguration(new CustomerModelConfiguration());
+            modelBuilder.AddConfiguration(new RoleModelConfiguration());
+            modelBuilder.AddConfiguration(new UserModelConfiguration());
+            
         }
   
     }

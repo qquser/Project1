@@ -20,13 +20,28 @@ namespace Project1.Client
             {
                 Console.WriteLine("1");
                 //Task.Run(() => CustomerGet());
-                Task.Run(() => CustomerAdd(Guid.NewGuid()));
+                Task.Run(() => UserRegister());
                 Console.WriteLine("sended");
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);
 
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
             // ProjectAdd(Guid.NewGuid());
+            //Console.ReadKey();
+        }
+
+        private static async Task UserRegister()
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/account/register", Method.POST);
+            request.AddParameter("Id", Guid.NewGuid());
+            request.AddParameter("Email", "qwe@qwe.qwe");
+            request.AddParameter("NewPassword", "qQ!123");
+            request.AddParameter("ConfirmPassword", "qQ!123");
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(client, request) as RestResponse;
+
+            Console.WriteLine(response.Content);
             //Console.ReadKey();
         }
 

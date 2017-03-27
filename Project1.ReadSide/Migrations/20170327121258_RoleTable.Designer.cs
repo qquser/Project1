@@ -9,9 +9,10 @@ using Project1.Common.Enums;
 namespace Project1.ReadSide.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20170327121258_RoleTable")]
+    partial class RoleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -105,56 +106,11 @@ namespace Project1.ReadSide.Migrations
                     b.ToTable("RoleModel");
                 });
 
-            modelBuilder.Entity("Project1.ReadSide.Models.UserModel", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<Guid>("AggregateId");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<long>("Identity")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("RoleId");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("Status");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AggregateId")
-                        .IsUnique();
-
-                    b.HasIndex("Identity")
-                        .IsUnique();
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserModel");
-                });
-
             modelBuilder.Entity("Project1.ReadSide.Models.ProjectModel", b =>
                 {
                     b.HasOne("Project1.ReadSide.Models.CustomerModel", "CustomerModel")
                         .WithMany("Projects")
                         .HasForeignKey("CustomerId");
-                });
-
-            modelBuilder.Entity("Project1.ReadSide.Models.UserModel", b =>
-                {
-                    b.HasOne("Project1.ReadSide.Models.RoleModel", "RoleModel")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
                 });
         }
     }

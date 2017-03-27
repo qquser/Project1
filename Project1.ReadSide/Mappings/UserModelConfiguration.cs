@@ -8,7 +8,9 @@ namespace Project1.ReadSide.Mappings
     {
         protected override void ConfigureModel(EntityTypeBuilder<UserModel> entity)
         {
-
+            entity.HasOne(user => user.RoleModel)
+                  .WithMany(role => role.Users)
+                  .HasForeignKey(user => user.RoleId);
         }
     }
 }
