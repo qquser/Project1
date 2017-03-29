@@ -18,11 +18,11 @@ namespace Project1.Application.API.Controllers
             return Ok($"Ваш логин: {User.Identity.Name}");
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user")]
         [Route("getrole")]
         public IActionResult GetRole()
         {
-            return Ok("Ваша роль: администратор");
+            return Ok("Ваша роль: user");
         }
 
         // GET api/values

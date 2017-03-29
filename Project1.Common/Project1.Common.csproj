@@ -53,7 +53,9 @@
     <Compile Include="Commands\User\IRegisterUser.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Enums\CustomerStatus.cs" />
+    <Compile Include="Enums\ExceptionMessage.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\UserRole.cs" />
     <Compile Include="Enums\UserStatus.cs" />
@@ -77,6 +79,9 @@
     <Compile Include="Queries\Customer\IGetCustomer.cs" />
     <Compile Include="Queries\Project\IGetAllProjects.cs" />
     <Compile Include="Queries\Project\IGetProject.cs" />
+    <Compile Include="Queries\Users\IGetAllUsers.cs" />
+    <Compile Include="Queries\Users\IGetUser.cs" />
+    <Compile Include="Queries\Users\IGetUserByEmail.cs" />
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

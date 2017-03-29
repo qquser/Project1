@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Project1.Application.API.Commands.User;
 using Project1.Application.API.Helpers;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.User;
 using Project1.Common.Commands.User;
+using Project1.Common.DTO;
+using Project1.Common.Queries.Users;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,47 +22,55 @@ namespace Project1.Application.API.Controllers
     [Route("api/[controller]")]
     public class AccountController : EnhancedApiController
     {
-        private List<Person> _people = new List<Person>
-        {
-            new Person {Login="admin@gmail.com", Password="12345", Role = "admin" },
-            new Person { Login="qwerty", Password="55555", Role = "user" }
-        };
-
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register(RegisterUserModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (model.CommandId == Guid.Empty)
-                model.CommandId = NewId.NextGuid();
-
-            var command = new RegisterUserCommand(model);
-            await Send(command);
-
-            return Accepted(new PostResult<RegisterUserCommand>()
+            try
             {
-                CommandId = command.Id,
-                Timestamp = command.Timestamp
-            });
+
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                if (model.CommandId == Guid.Empty)
+                    model.CommandId = NewId.NextGuid();
+
+                var command = new RegisterUserCommand(model);
+                await Send(command);
+
+                return Accepted(new PostResult<RegisterUserCommand>()
+                {
+                    CommandId = command.Id,
+                    Timestamp = command.Timestamp
+                });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-        [HttpPost("/token")]
-        public async Task Token()
+        [HttpPost]
+        [Route("token")]
+        public async Task Token(TokenUserModel model)
         {
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = 400;
+                await Response.WriteAsync("username or password cannot be empty");
+                return;
+            }
 
-            var identity = GetIdentity(username, password);
+            var email = model.UserName;//Request.Form["username"];
+            var password = model.Password;//Request.Form["password"];
+
+            var identity = GetIdentity(email, password);
             if (identity == null)
             {
                 Response.StatusCode = 400;
                 await Response.WriteAsync("Invalid username or password.");
                 return;
+                //return BadRequest("Invalid username or password.");
             }
-
-
             var now = DateTime.UtcNow;
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
@@ -76,21 +87,26 @@ namespace Project1.Application.API.Controllers
                 access_token = encodedJwt,
                 username = identity.Name
             };
-
             // сериализация ответа
             Response.ContentType = "application/json";
             await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
+
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private ClaimsIdentity GetIdentity(string email, string password)
         {
-            Person person = _people.FirstOrDefault(x => x.Login == username && x.Password == password);
-            if (person != null)
+            var query = new GetUserByEmail(email);
+            var result = SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
+
+            if (result.User == null || result.User == null)
+                return null;
+
+            if (Hashing.ValidatePassword(password, result.User.PasswordHash))
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, result.User.Email),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, result.User.RoleName)
                 };
                 ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
@@ -98,27 +114,23 @@ namespace Project1.Application.API.Controllers
                 return claimsIdentity;
             }
 
-            // если пользователя не найдено
             return null;
         }
 
     }
 
-    class RegisterUserCommand : IRegisterUser
+    public class GetAllUsers : IGetAllUsers
     {
-        private readonly RegisterUserModel _model;
+    }
 
-        public RegisterUserCommand(RegisterUserModel model)
+    public class GetUserByEmail : IGetUserByEmail
+    {
+        public GetUserByEmail(string email)
         {
-            _model = model;
-            Timestamp = DateTime.UtcNow;
+            Email = email;
         }
 
-        public Guid Id => _model.Id;
-        public string Email => _model.Email;
-        public string PasswordHash => Hashing.HashPassword(_model.ConfirmPassword);
-
-        public DateTime Timestamp { get; }
-        public Guid CommandId => _model.CommandId;
+        public string Email { get; }
     }
+
 }

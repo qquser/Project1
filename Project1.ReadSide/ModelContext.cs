@@ -26,24 +26,24 @@ namespace Project1.ReadSide
         public virtual DbSet<CustomerModel> Customers { get; set; }
         public virtual DbSet<ProjectModel> Projects { get; set; }
         public virtual DbSet<UserModel> Users { get; set; }
-
         public virtual DbSet<RoleModel> Roles { get; set; }
 
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
         IQueryable<CustomerModel> IModelReader.Customers => Customers.AsNoTracking();
         IQueryable<UserModel> IModelReader.Users => Users.AsNoTracking();
+        IQueryable<RoleModel> IModelReader.Roles => Roles.AsNoTracking();
 
         async Task<int> IModelUpdater.SaveChangesAsync()
         {
             return await SaveChangesAsync(); 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

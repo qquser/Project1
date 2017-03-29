@@ -19,6 +19,12 @@ namespace Project1.ReadSide
                     //.ForMember(s => s.AssignedUsersIds,
                     //    opt => opt.MapFrom(src => src.AssignedUsers.Select(x => x.AggregateId)))
                     .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
+
+                c.CreateMap<UserModel, UserDTO>()
+                    .ForMember(s => s.RoleId, opt => opt.MapFrom(src => src.RoleModel.AggregateId))
+                    .ForMember(s => s.RoleName, opt => opt.MapFrom(src => src.RoleModel.Name))
+                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId)); ;
+
             });
             config.AssertConfigurationIsValid();
             return config.CreateMapper();

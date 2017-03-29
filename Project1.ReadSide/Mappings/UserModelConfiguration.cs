@@ -11,6 +11,7 @@ namespace Project1.ReadSide.Mappings
             entity.HasOne(user => user.RoleModel)
                   .WithMany(role => role.Users)
                   .HasForeignKey(user => user.RoleId);
+            entity.HasIndex(b => b.Email).IsUnique();
         }
     }
 }

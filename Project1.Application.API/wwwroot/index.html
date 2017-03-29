@@ -36,7 +36,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/token',
+                url: '/api/account/token',
                 data: loginData
             }).success(function (data) {
                 $('.userName').text(data.username);

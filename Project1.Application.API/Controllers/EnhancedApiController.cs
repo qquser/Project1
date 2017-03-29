@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
+using Project1.Application.API.Bus;
 
 namespace Project1.Application.API.Controllers
 {
@@ -19,9 +20,7 @@ namespace Project1.Application.API.Controllers
             CancellationToken cancellationToken = default(CancellationToken))
             where TMessage : class
         {
-            var address = "rabbitmq://localhost/commands";
-            var endpoint = await Startup.Bus.GetSendEndpoint(new Uri(address));
-            await endpoint.Send<TMessage>(message, cancellationToken);
+            await BusControl.Send(message, cancellationToken);
         }
 
         protected async Task<TResponse> SendRequest<TRequest, TResponse>(TRequest request,
@@ -29,12 +28,7 @@ namespace Project1.Application.API.Controllers
             where TRequest : class
             where TResponse : class
         {
-            var address = new Uri("rabbitmq://localhost/requests");
-            var requestTimeout = TimeSpan.FromSeconds(30);
-
-            IRequestClient<TRequest, TResponse> client =
-                new MessageRequestClient<TRequest, TResponse>(Startup.Bus, address, requestTimeout);
-            return await client.Request(request, cancellationToken);
+            return await BusControl.SendRequest<TRequest, TResponse>(request, cancellationToken);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Project1.ReadSide.Interfaces
         IQueryable<ProjectModel> Projects { get; }
         IQueryable<CustomerModel> Customers { get; }
         IQueryable<UserModel> Users { get; }
+        IQueryable<RoleModel> Roles { get; }
     }
 }

@@ -19,21 +19,19 @@ namespace Project1.Test.ApplicationAPI
         public void BCrypt_Test()
         {
             string myPassword = "password";
-            var hashing = new Hashing();
-
-            string hash = hashing.HashPassword(myPassword);
+  
+            string hash = Hashing.HashPassword(myPassword);
             
-            Assert.IsTrue(hashing.ValidatePassword(myPassword, hash));
+            Assert.IsTrue(Hashing.ValidatePassword(myPassword, hash));
         }
 
         [Test]
         public void BCrypt_IsDifferentHash_Test()
         {
             string myPassword = "1";
-            var hashing = new Hashing();
 
-            string hash1 = hashing.HashPassword(myPassword);
-            string hash2 = hashing.HashPassword(myPassword);
+            string hash1 = Hashing.HashPassword(myPassword);
+            string hash2 = Hashing.HashPassword(myPassword);
 
             Assert.AreNotEqual(hash1, hash2);
         }
@@ -42,13 +40,12 @@ namespace Project1.Test.ApplicationAPI
         public void BCrypt_OnePassword_TwoHash_Test()
         {
             string myPassword = "1";
-            var hashing = new Hashing();
 
-            string hash1 = hashing.HashPassword(myPassword);
-            string hash2 = hashing.HashPassword(myPassword);
+            string hash1 = Hashing.HashPassword(myPassword);
+            string hash2 = Hashing.HashPassword(myPassword);
 
-            Assert.IsTrue(hashing.ValidatePassword(myPassword, hash1));
-            Assert.IsTrue(hashing.ValidatePassword(myPassword, hash2));
+            Assert.IsTrue(Hashing.ValidatePassword(myPassword, hash1));
+            Assert.IsTrue(Hashing.ValidatePassword(myPassword, hash2));
         }
 
         //[Test]
