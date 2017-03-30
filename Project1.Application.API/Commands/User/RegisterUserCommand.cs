@@ -16,6 +16,7 @@ namespace Project1.Application.API.Commands.User
 
         public RegisterUserCommand(RegisterUserModel model)
         {
+            new ConfirmPasswordCheckDecorator(model);
             new EmailShouldNotExistDecorator(model);
             _model = model;
             Timestamp = DateTime.UtcNow;

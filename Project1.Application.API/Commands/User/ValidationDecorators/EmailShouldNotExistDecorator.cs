@@ -18,9 +18,6 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
 
         protected override void Validate(RegisterUserModel model)
         {
-            if (model.NewPassword != model.ConfirmPassword)
-                throw new Exception(ExceptionInfo.WrongPasswordConfirmation.Message);
-
             var query = new GetUserByEmail(model.Email);
             var result = BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
             if (result.User!=null)
