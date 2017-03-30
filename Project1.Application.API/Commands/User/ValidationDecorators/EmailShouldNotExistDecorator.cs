@@ -1,7 +1,6 @@
 ﻿using Project1.Application.API.Bus;
-using Project1.Application.API.Controllers;
 using Project1.Application.API.Models.User;
-using Project1.Common.Commands.User;
+using Project1.Application.API.Queries.User;
 using Project1.Common.Enums;
 using Project1.Common.Queries.Users;
 using System;
@@ -19,6 +18,9 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
 
         protected override void Validate(RegisterUserModel model)
         {
+            if (model.NewPassword != model.ConfirmPassword)
+                throw new Exception(ExceptionInfo.WrongPasswordConfirmation.Message);
+
             var query = new GetUserByEmail(model.Email);
             var result = BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
             if (result.User!=null)

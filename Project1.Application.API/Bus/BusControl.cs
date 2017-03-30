@@ -28,5 +28,17 @@ namespace Project1.Application.API.Bus
                 new MessageRequestClient<TRequest, TResponse>(Startup.Bus, address, requestTimeout);
             return await client.Request(request, cancellationToken);
         }
+
+        public static async Task<TResponse> SendCommandWithRespond<TRequest, TResponse>(TRequest request, CancellationToken cancellationToken = default(CancellationToken))
+              where TRequest : class
+              where TResponse : class
+        {
+            var address = new Uri("rabbitmq://localhost/commands");
+            var requestTimeout = TimeSpan.FromSeconds(30);
+
+            IRequestClient<TRequest, TResponse> client =
+                new MessageRequestClient<TRequest, TResponse>(Startup.Bus, address, requestTimeout);
+            return await client.Request(request, cancellationToken);
+        }
     }
 }

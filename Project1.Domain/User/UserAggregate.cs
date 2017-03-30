@@ -9,7 +9,7 @@ namespace Project1.Domain.User
 {
     internal class UserAggregate : AggregateBase
     {
-        private UserState _state;
+        internal UserState State { get; private set; }
 
         private UserAggregate(NonEmptyIdentity id)
         {
@@ -22,12 +22,12 @@ namespace Project1.Domain.User
             {
                 throw new ArgumentNullException(nameof(state));
             }
-            _state = state;
+            State = state;
         }
 
         public UserAggregate(NonEmptyIdentity id, UserName name) : this(id)
         {
-            RaiseEvent(new UserRegistred(id, name.Email, name.PasswordHash, UserRole.User.ToString()));
+            RaiseEvent(new UserRegistred(id, name.Email, name.PasswordHash, UserRole.User.ToString(), UserStatus.Active));
         }
 
         public static UserAggregate Add(Guid id, string email, string hash)
@@ -56,22 +56,23 @@ namespace Project1.Domain.User
 
         private void Apply(UserRegistred @event)
         {
-            _state = new UserState
+            State = new UserState
             {
                 Id = new NonEmptyIdentity(@event.Id),
                 UserName = new UserName(@event.Email, @event.PasswordHash),
-                RoleName = @event.RoleName
+                RoleName = @event.RoleName,
+                Status = @event.Status
             };
         }
 
         private void Apply(UserPromoted @event)
         {
-            _state.RoleName = UserRole.Manager.ToString();
+            State.RoleName = UserRole.Manager.ToString();
         }
 
         private void Apply(UserDemoted @event)
         {
-            _state.RoleName = UserRole.None.ToString();
+            State.RoleName = UserRole.None.ToString();
         }
     }
 }

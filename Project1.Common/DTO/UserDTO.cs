@@ -14,8 +14,8 @@ namespace Project1.Common.DTO
         public string PasswordHash { get; set; }
         public UserStatus Status { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        //public string FirstName { get; set; }
+        //public string LastName { get; set; }
 
         public string RoleId { get; set; }
         public string RoleName { get; set; }

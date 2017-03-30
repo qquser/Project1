@@ -9,5 +9,6 @@ namespace Project1.Domain.User.ValueObjects
         public NonEmptyIdentity Id { get; set; }
         public UserName UserName { get; set; }
         public string RoleName { get; set; }
+        public UserStatus Status { get; set; }
     }
 }

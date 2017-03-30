@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Project1.Application.API.Bus;
 using Project1.Application.API.Commands.User;
 using Project1.Application.API.Helpers;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.User;
+using Project1.Application.API.Queries.User;
+using Project1.Common;
 using Project1.Common.Commands.User;
 using Project1.Common.DTO;
 using Project1.Common.Queries.Users;
@@ -36,12 +39,21 @@ namespace Project1.Application.API.Controllers
                     model.CommandId = NewId.NextGuid();
 
                 var command = new RegisterUserCommand(model);
-                await Send(command);
+                var result = await BusControl.SendCommandWithRespond<IRegisterUser, IGetUserResult>(command);
 
-                return Accepted(new PostResult<RegisterUserCommand>()
+                var identity = AuthOptions.GetIdentity(command.Email, model.NewPassword, result.User.PasswordHash, result.User.RoleName);
+                if (identity == null)
                 {
-                    CommandId = command.Id,
-                    Timestamp = command.Timestamp
+                    return BadRequest("Invalid username or password.");
+                }
+                var token = AuthOptions.Token(identity);
+
+                return Accepted(new AuthPostResult<RegisterUserCommand>()
+                {
+                    CommandId = result.User.Id,
+                    Timestamp = command.Timestamp,
+                    Token = token,
+
                 });
             }
             catch(Exception ex)
@@ -63,7 +75,10 @@ namespace Project1.Application.API.Controllers
             var email = model.UserName;//Request.Form["username"];
             var password = model.Password;//Request.Form["password"];
 
-            var identity = GetIdentity(email, password);
+            var query = new GetUserByEmail(email);
+            var result = BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
+
+            var identity = AuthOptions.GetIdentity(email, password, result.User.PasswordHash, result.User.RoleName);
             if (identity == null)
             {
                 Response.StatusCode = 400;
@@ -71,16 +86,7 @@ namespace Project1.Application.API.Controllers
                 return;
                 //return BadRequest("Invalid username or password.");
             }
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var encodedJwt = AuthOptions.Token(identity);
 
             var response = new
             {
@@ -93,44 +99,10 @@ namespace Project1.Application.API.Controllers
 
         }
 
-        private ClaimsIdentity GetIdentity(string email, string password)
-        {
-            var query = new GetUserByEmail(email);
-            var result = SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
-
-            if (result.User == null || result.User == null)
-                return null;
-
-            if (Hashing.ValidatePassword(password, result.User.PasswordHash))
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, result.User.Email),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, result.User.RoleName)
-                };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-
-            return null;
-        }
 
     }
 
-    public class GetAllUsers : IGetAllUsers
-    {
-    }
 
-    public class GetUserByEmail : IGetUserByEmail
-    {
-        public GetUserByEmail(string email)
-        {
-            Email = email;
-        }
 
-        public string Email { get; }
-    }
 
 }

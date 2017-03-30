@@ -15,6 +15,7 @@ using Ninject.Activation.Providers;
 using Ninject.Extensions.Conventions;
 using Project1.Domain.Project.Service;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Project1.WriteSide
 {
@@ -93,6 +94,8 @@ namespace Project1.WriteSide
             _kernel.Bind<IStoreEvents>()
                 .ToMethod(context => EventStoreConfig.Create(bus))
                 .InSingletonScope();
+
+            _kernel.Bind<IMapper>().ToConstant(MapConfig.CreateMapper()).InSingletonScope();
 
             _kernel.Bind<IDetectConflicts>().To<ConflictDetector>();
             _kernel.Bind<IRepository>().To<EventStoreRepository>();

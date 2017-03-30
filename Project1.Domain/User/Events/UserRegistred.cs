@@ -6,12 +6,13 @@ namespace Project1.Domain.User.Events
 {
     internal class UserRegistred : IUserRegistred
     {
-        public UserRegistred(Guid id, string email, string passwordHash, string roleName)
+        public UserRegistred(Guid id, string email, string passwordHash, string roleName, UserStatus status)
         {
             Id = id;
             Email = email;
             PasswordHash = passwordHash;
             RoleName = roleName;
+            Status = status;
         }
 
         public Guid Id { get; }

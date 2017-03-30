@@ -1,6 +1,7 @@
 ﻿using System;
 using CommonDomain.Persistence;
 using Project1.Common;
+using Project1.Domain.User.ValueObjects;
 
 namespace Project1.Domain.User.Service
 {
@@ -13,10 +14,11 @@ namespace Project1.Domain.User.Service
             _repository = repository;
         }
 
-        public void Add(Guid id, string email, string hash)
+        public UserState Add(Guid id, string email, string hash)
         {
             var user = UserAggregate.Add(id, email, hash);
             _repository.Save(user, Guid.NewGuid(), null);
+            return user.State;
         }
 
         public void Promote(Guid userId)

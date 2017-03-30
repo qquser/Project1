@@ -1,6 +1,7 @@
 ﻿using Project1.Application.API.Commands.User.ValidationDecorators;
 using Project1.Application.API.Helpers;
 using Project1.Application.API.Models.User;
+using Project1.Common;
 using Project1.Common.Commands.User;
 using System;
 using System.Collections.Generic;

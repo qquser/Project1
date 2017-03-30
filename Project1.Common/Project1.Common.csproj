@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net, Version=0.1.4141.31969, Culture=neutral, PublicKeyToken=f3bc8f8c31beeb49, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net.0.1.0\lib\net35\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +75,7 @@
     <Compile Include="Events\UserAdded\IUserRegistred.cs" />
     <Compile Include="Events\UserAdded\IUserDemoted.cs" />
     <Compile Include="Events\UserAdded\IUserPromoted.cs" />
+    <Compile Include="Hashing.cs" />
     <Compile Include="Messages\IMessagePublisher.cs" />
     <Compile Include="NonEmptyIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +87,9 @@
     <Compile Include="Queries\Users\IGetUser.cs" />
     <Compile Include="Queries\Users\IGetUserByEmail.cs" />
     <Compile Include="ValueObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

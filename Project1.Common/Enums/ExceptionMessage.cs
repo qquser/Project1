@@ -12,7 +12,8 @@ namespace Project1.Common.Enums
         public string Message { get; private set; }
 
         public static readonly ExceptionInfo EmailAlreadyExists = new ExceptionInfo(1, "Email already exists!");
-       
+        public static readonly ExceptionInfo WrongPasswordConfirmation = new ExceptionInfo(2, "Wrong password confirmation!");
+
 
         private ExceptionInfo(int code, string message)
         {

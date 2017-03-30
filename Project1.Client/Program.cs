@@ -35,7 +35,7 @@ namespace Project1.Client
             var client = new RestClient("http://localhost:49987/");
             var request = new RestRequest($"api/account/register", Method.POST);
             request.AddParameter("Id", Guid.NewGuid());
-            request.AddParameter("Email", "qwe@qwe.qwe");
+            request.AddParameter("Email", "qwe7@qwe.qwe");
             request.AddParameter("NewPassword", "qQ!123");
             request.AddParameter("ConfirmPassword", "qQ!123");
             var response = new RestResponse();

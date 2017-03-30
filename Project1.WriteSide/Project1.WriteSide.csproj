@@ -35,6 +35,9 @@
     <StartupObject>Project1.WriteSide.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="GreenPipes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\packages\GreenPipes.1.0.9\lib\net452\GreenPipes.dll</HintPath>
     </Reference>
@@ -97,6 +100,7 @@
     <Compile Include="Handlers\Project\ProjectHandler.cs" />
     <Compile Include="Handlers\User\UserHandler.cs" />
     <Compile Include="InternalDispatcher.cs" />
+    <Compile Include="MapConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WriteService.cs" />
