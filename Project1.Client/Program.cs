@@ -37,7 +37,7 @@ namespace Project1.Client
             request.AddParameter("Id", Guid.NewGuid());
             request.AddParameter("Email", "qwe7@qwe.qwe");
             request.AddParameter("NewPassword", "qQ!123");
-            request.AddParameter("ConfirmPassword", "qQ!123");
+            request.AddParameter("ConfirmPassword", "qQ!1213");
             var response = new RestResponse();
             response = await GetResponseContentAsync(client, request) as RestResponse;
 

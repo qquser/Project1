@@ -67,7 +67,8 @@ namespace Project1.Application.API
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+
+            app.UseJwtBearerAuthentication2(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,

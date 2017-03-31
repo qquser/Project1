@@ -1,7 +1,9 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using Project1.Application.API.Bus;
 using Project1.Application.API.Commands.User;
@@ -61,6 +63,9 @@ namespace Project1.Application.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+
         [HttpPost]
         [Route("token")]
         public async Task Token(TokenUserModel model)
@@ -98,7 +103,6 @@ namespace Project1.Application.API.Controllers
             await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
 
         }
-
 
     }
 
