@@ -39,6 +39,7 @@ namespace Project1.ReadSide
             return await SaveChangesAsync(); 
         }
 
+        //TODO при накатывании миграций лучше, конечно, раскоментить
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;

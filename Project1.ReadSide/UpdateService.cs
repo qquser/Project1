@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Project1.Common.Messages;
 using Project1.ReadSide.Updaters;
 using Ninject.Activation.Providers;
+using Project1.ReadSide.SeedDb;
 
 namespace Project1.ReadSide
 {
@@ -22,6 +23,8 @@ namespace Project1.ReadSide
         private readonly StandardKernel _kernel = new StandardKernel();
 
         private IBusControl _busControl;
+        //private ModelContext _modelContext;
+
         //private BusHandle _busHandle;
 
         public bool Start(HostControl hostControl)
@@ -37,7 +40,17 @@ namespace Project1.ReadSide
 
             TaskUtil.Await(() => _busControl.StartAsync());
 
+            ConfigureDb();
+
             return true;
+        }
+
+        private void ConfigureDb()
+        {
+            var context = _kernel.Get<IModelUpdater>();
+            //if (!context.AllMigrationsApplied())
+            //    context.Database.Migrate();
+            context.EnsureSeeded();
         }
 
         public bool Stop(HostControl hostControl)
@@ -99,8 +112,10 @@ namespace Project1.ReadSide
             }).WithConstructorArgument("options", optionsBuilder.Options);
 
             _kernel.Bind<IBusControl>()
-          .ToConstant(_busControl)
-          .InSingletonScope();
+              .ToConstant(_busControl)
+              .InSingletonScope();
+
+            //_kernel.Bind<ModelContext>().ToSelf().InThreadScope();
 
             _kernel.Bind<IBus>()
                 .ToProvider(new CallbackProvider<IBus>(x => x.Kernel.Get<IBusControl>()));
