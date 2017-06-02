@@ -17,6 +17,8 @@ using Project1.WriteSide.Handlers.Project;
 using Project1.ReadSide.Updaters;
 using Project1.ReadSide.Readers;
 using Project1.ReadSide.Updaters.Customer;
+using Project1.ReadSide.Interfaces;
+using Project1.ReadSide.Mappings;
 
 namespace Project1.Test.WriteSideTests
 {
@@ -57,6 +59,24 @@ namespace Project1.Test.WriteSideTests
             //var service = Mock.Of<IProjectService>(); 
 
             var bindings = kernel.GetBindings(typeof(CustomerUpdater)); //new ConstructorArgument("service", service));
+
+            Assert.True(bindings.Any());
+        }
+
+        [Test]
+        public void Ninject_Get_ModelConfigs_Test()
+        {
+            StandardKernel kernel = new StandardKernel();
+            kernel.Bind(x => x
+                //.FromThisAssembly()
+                .FromAssemblyContaining<MessagePublisher>()
+                .IncludingNonePublicTypes() // 
+                .SelectAllClasses()
+                .InheritedFrom(typeof(IModelConfiguration<>))
+                .BindToSelf());
+            //var service = Mock.Of<IProjectService>(); 
+        
+            var bindings = kernel.GetBindings(typeof(CustomerModelConfiguration)).ToList();
 
             Assert.True(bindings.Any());
         }

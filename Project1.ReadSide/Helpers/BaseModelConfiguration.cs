@@ -7,11 +7,10 @@ using System;
 
 namespace Project1.ReadSide.Helpers
 {
-    [InheritedExport(typeof(IModelConfiguration<>))]
+    [InheritedExport(typeof(IModelConfiguration))]
     internal abstract class BaseModelConfiguration<TEntity> : IModelConfiguration<TEntity>, IModelConfiguration
         where TEntity : BaseModel
     {
-
         public void Configure(EntityTypeBuilder<TEntity> entity)
         {
             entity.HasKey(p => p.Id);

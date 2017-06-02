@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 using Project1.ReadSide;
 using Project1.ReadSide.Helpers;
 using Project1.ReadSide.Interfaces;
@@ -14,9 +15,20 @@ using System.Threading.Tasks;
 
 namespace Project1.Test.ReadSideTests
 {
+
+    static class ModelBuilderHelper
+    {
+        public static IModelConfiguration<T> CastToConfigurationType<T>(IModelConfiguration<T> hackToInferNeededType, object givenObject) where T : BaseModel
+        {
+            return givenObject as IModelConfiguration<T>;
+        }
+    }
+
     [TestFixture]
     public class ContextConfigurationTests
     {
+        public object CastHelper { get; private set; }
+
         [Test]
         public void ContextConfiguration_Test()
         {
@@ -28,20 +40,32 @@ namespace Project1.Test.ReadSideTests
             var contextConfig = new ContextConfiguration();//generic.GetMethod("Instance");//Activator.CreateInstance(generic);
             var catalog = new AssemblyCatalog(Assembly.GetAssembly(typeof(UpdateService)));
             var container = new CompositionContainer(catalog);
+            container.ComposeParts(contextConfig);
 
             //var qweqwe = typeof(ContextConfigurationTests).GetMethod("Configs", BindingFlags.NonPublic |
             //             BindingFlags.Static);
             //var t = qweqwe.MakeGenericMethod(typeof(ProjectModel));
             //var qwe= t.Invoke(null, null);
-            container.ComposeParts(contextConfig);
+            
 
             foreach (var configuration in contextConfig.Configurations)
             {
-                var test = configuration;
+                Type modelType = configuration.GetType().BaseType.GetGenericArguments().Single();
+                Type shellType = typeof(IModelConfiguration<>);
+                Type configModelType = shellType.MakeGenericType(modelType);
+
+                // object predicate = predicateProperty.GetValue(invocation.InvocationTarget, null);
+                //var item = ((dynamic)configModelType).Get((dynamic)configuration);
+                //Activator.CreateInstance(modelType)
+                var qwe = ModelBuilderHelper.CastToConfigurationType((dynamic)configuration, configuration);
+                Assert.IsTrue(qwe is IModelConfiguration);
+                //var bar = Convert.ChangeType(configuration, specificShellPropertyType);
+
+                //var test = (IEnumerable<typeof(modelType)>)configuration;
             }
 
 
-            Assert.AreEqual(1,0);
+            //Assert.AreEqual(1,0);
         }
 
 

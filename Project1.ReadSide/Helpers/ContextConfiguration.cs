@@ -10,7 +10,9 @@ namespace Project1.ReadSide.Helpers
 {
     internal class ContextConfiguration
     {
-        [ImportMany(typeof(IModelConfiguration<>))]
-        public IEnumerable<IModelConfiguration<BaseModel>> Configurations  { get; set; }
+        [ImportMany(typeof(IModelConfiguration))]
+        public IEnumerable<IModelConfiguration> Configurations  { get; set; }
     }
+
+
 }

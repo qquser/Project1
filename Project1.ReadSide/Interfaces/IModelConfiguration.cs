@@ -13,9 +13,9 @@ namespace Project1.ReadSide.Interfaces
         void Configure(EntityTypeBuilder<TEntity> entity);
     }
 
-    internal interface IModelConfiguration
+    public interface IModelConfiguration
     {
-   
+        
     }
     
 }

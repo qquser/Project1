@@ -28,7 +28,7 @@ namespace Project1.ReadSide.SeedDb
         //    return !total.Except(applied).Any();
         //}
 
-        // Импровезированный Seed как в EF6
+        // Импровизированный Seed как в EF6
         public static void EnsureSeeded(this IModelUpdater context)
         {
             //Ensure we have some Roles

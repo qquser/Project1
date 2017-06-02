@@ -39,7 +39,7 @@ namespace Project1.ReadSide
             return await SaveChangesAsync(); 
         }
 
-        //TODO при накатывании миграций лучше, конечно, раскоментить
+        //TODO при накатывании миграций лучше бы, конечно, раскоментить
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
@@ -50,13 +50,28 @@ namespace Project1.ReadSide
         {
             modelBuilder.RemovePluralizingTableNameConvention();
 
-            modelBuilder.AddConfiguration(new ProjectModelConfiguration());
-            modelBuilder.AddConfiguration(new CustomerModelConfiguration());
-            modelBuilder.AddConfiguration(new RoleModelConfiguration());
-            modelBuilder.AddConfiguration(new UserModelConfiguration());
-            
+            //Добавление конфигураций для всех моделей 
+            var contextConfig = new ContextConfiguration();
+            var catalog = new AssemblyCatalog(Assembly.GetAssembly(typeof(UpdateService)));
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(contextConfig);
+
+            foreach (var configuration in contextConfig.Configurations)
+            {
+                Type modelType = configuration.GetType().BaseType.GetGenericArguments().Single(); //класс обобщен только одним параметром
+                AddConfigurationWithCast((dynamic)configuration, configuration, modelBuilder);
+            }
+
         }
-  
+
+        //грязный хак
+        void AddConfigurationWithCast<T>(IModelConfiguration<T> hackToInferNeededType, object givenObject, ModelBuilder modelBuilder)
+            where T : BaseModel
+        {
+            var config = givenObject as IModelConfiguration<T>;
+            modelBuilder.AddConfiguration(config);
+        }
+
     }
 
 
