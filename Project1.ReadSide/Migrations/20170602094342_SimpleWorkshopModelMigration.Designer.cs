@@ -9,9 +9,10 @@ using Project1.Common.Enums;
 namespace Project1.ReadSide.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    partial class ModelContextModelSnapshot : ModelSnapshot
+    [Migration("20170602094342_SimpleWorkshopModelMigration")]
+    partial class SimpleWorkshopModelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -69,47 +70,6 @@ namespace Project1.ReadSide.Migrations
                         .IsUnique();
 
                     b.ToTable("CustomerModel");
-                });
-
-            modelBuilder.Entity("Project1.ReadSide.Models.JobModel", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<Guid>("AggregateId");
-
-                    b.Property<string>("CityId")
-                        .IsRequired();
-
-                    b.Property<string>("Description");
-
-                    b.Property<long>("Identity")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.Property<string>("WorkshopId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AggregateId")
-                        .IsUnique();
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("Identity")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("WorkshopId");
-
-                    b.ToTable("JobModel");
                 });
 
             modelBuilder.Entity("Project1.ReadSide.Models.ProjectModel", b =>
@@ -244,24 +204,6 @@ namespace Project1.ReadSide.Migrations
                         .IsUnique();
 
                     b.ToTable("WorkshopModel");
-                });
-
-            modelBuilder.Entity("Project1.ReadSide.Models.JobModel", b =>
-                {
-                    b.HasOne("Project1.ReadSide.Models.CityModel", "CityModel")
-                        .WithMany("Jobs")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Project1.ReadSide.Models.UserModel", "UserModel")
-                        .WithMany("Jobs")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Project1.ReadSide.Models.WorkshopModel", "WorkshopModel")
-                        .WithMany("Jobs")
-                        .HasForeignKey("WorkshopId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Project1.ReadSide.Models.ProjectModel", b =>

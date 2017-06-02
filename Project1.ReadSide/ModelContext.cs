@@ -40,11 +40,11 @@ namespace Project1.ReadSide
         }
 
         //TODO при накатывании миграций лучше бы, конечно, раскоментить
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
-        //    optionsBuilder.UseSqlServer(connectionString);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["LocalDb"].ConnectionString;
+            optionsBuilder.UseSqlServer(connectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,6 @@ namespace Project1.ReadSide
 
             foreach (var configuration in contextConfig.Configurations)
             {
-                Type modelType = configuration.GetType().BaseType.GetGenericArguments().Single(); //класс обобщен только одним параметром
                 AddConfigurationWithCast((dynamic)configuration, configuration, modelBuilder);
             }
 

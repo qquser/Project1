@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace Project1.ReadSide.Models
 {
-    public class CityModel : BaseModel
+    public class WorkshopModel : BaseModel
     {
-        private CityModel()
+        private WorkshopModel()
         {
         }
-        public CityModel(Guid id) : base(id)
+        public WorkshopModel(Guid id) : base(id)
         {
         }
 
         public string Name { get; set; }
 
-        public ICollection<WorkshopModel> Workshops { get; set; }
+        public string CityId { get; set; }
+        public CityModel CityModel { get; set; }
+
         public ICollection<JobModel> Jobs { get; set; }
     }
 }

@@ -17,10 +17,15 @@ namespace Project1.ReadSide.Models
         {
         }
         
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Description { get; set; }
 
         public string UserId { get; set; }
         public UserModel UserModel { get; set; }
+
+        public string CityId { get; set; }
+        public CityModel CityModel { get; set; }
+
+        public string WorkshopId { get; set; }
+        public WorkshopModel WorkshopModel { get; set; }
     }
 }

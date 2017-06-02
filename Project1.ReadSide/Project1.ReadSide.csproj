@@ -186,10 +186,13 @@
     <Compile Include="Interfaces\IModelReader.cs" />
     <Compile Include="Interfaces\IModelUpdater.cs" />
     <Compile Include="MapConfig.cs" />
+    <Compile Include="Mappings\CityModelConfiguration.cs" />
     <Compile Include="Mappings\CustomerModelConfiguration.cs" />
+    <Compile Include="Mappings\JobModelConfiguration.cs" />
     <Compile Include="Mappings\ProjectModelConfiguration.cs" />
     <Compile Include="Mappings\RoleModelConfiguration.cs" />
     <Compile Include="Mappings\UserModelConfiguration.cs" />
+    <Compile Include="Mappings\WorkshopModelConfiguration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
       <DependentUpon>20170315200543_InitialMigration.cs</DependentUpon>
@@ -218,6 +221,18 @@
     <Compile Include="Migrations\20170328164635_UserEmailIsUnique.designer.cs">
       <DependentUpon>20170328164635_UserEmailIsUnique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170602091403_SimpleCityModelMigration.cs" />
+    <Compile Include="Migrations\20170602091403_SimpleCityModelMigration.designer.cs">
+      <DependentUpon>20170602091403_SimpleCityModelMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170602094342_SimpleWorkshopModelMigration.cs" />
+    <Compile Include="Migrations\20170602094342_SimpleWorkshopModelMigration.designer.cs">
+      <DependentUpon>20170602094342_SimpleWorkshopModelMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20170602112044_SimpleJobTable.cs" />
+    <Compile Include="Migrations\20170602112044_SimpleJobTable.designer.cs">
+      <DependentUpon>20170602112044_SimpleJobTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -226,6 +241,7 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\WorkshopModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\CustomerReader.cs" />
