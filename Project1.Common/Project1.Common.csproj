@@ -46,6 +46,9 @@
     <Compile Include="Commands\City\IAddCity.cs" />
     <Compile Include="Commands\City\IMakeCityInActive.cs" />
     <Compile Include="Commands\City\IRenameCity.cs" />
+    <Compile Include="Commands\Job\IAddJob.cs" />
+    <Compile Include="Commands\Job\IMakeJobInActive.cs" />
+    <Compile Include="Commands\Job\IRenameJob.cs" />
     <Compile Include="Commands\Workshop\IAddWorkshop.cs" />
     <Compile Include="Commands\Workshop\IMakeWorkshopInActive.cs" />
     <Compile Include="Commands\Customer\IAddCustomer.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Commands\User\IRegisterUser.cs" />
     <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
+    <Compile Include="DTO\JobDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\WorkshopDTO.cs" />
@@ -83,6 +87,9 @@
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\IEventPublisher.cs" />
+    <Compile Include="Events\Job\IJobAdded.cs" />
+    <Compile Include="Events\Job\IJobMarkedAsInActive.cs" />
+    <Compile Include="Events\Job\IJobRenamed.cs" />
     <Compile Include="Events\Project\IProjectAdded.cs" />
     <Compile Include="Events\Project\IProjectMarkedAsInActive.cs" />
     <Compile Include="Events\Project\IProjectRenamed.cs" />
@@ -100,6 +107,8 @@
     <Compile Include="Queries\City\IGetCity.cs" />
     <Compile Include="Queries\Customer\IGetAllCustomers.cs" />
     <Compile Include="Queries\Customer\IGetCustomer.cs" />
+    <Compile Include="Queries\Job\IGetAllJobs.cs" />
+    <Compile Include="Queries\Job\IGetJob.cs" />
     <Compile Include="Queries\Project\IGetAllProjects.cs" />
     <Compile Include="Queries\Project\IGetProject.cs" />
     <Compile Include="Queries\Users\IGetAllUsers.cs" />

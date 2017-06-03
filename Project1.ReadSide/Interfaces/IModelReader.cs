@@ -12,5 +12,6 @@ namespace Project1.ReadSide.Interfaces
         IQueryable<RoleModel> Roles { get; }
         IQueryable<CityModel> Cities { get; }
         IQueryable<WorkshopModel> Workshops { get; }
+        IQueryable<JobModel> Jobs { get; }
     }
 }

@@ -18,11 +18,6 @@ namespace Project1.ReadSide.Mappings
                   .HasForeignKey(job => job.UserId);
             entity.Property(p => p.UserId).IsRequired();
 
-            entity.HasOne(job => job.CityModel)
-                 .WithMany(city => city.Jobs)
-                 .HasForeignKey(job => job.CityId);
-            entity.Property(p => p.CityId).IsRequired();
-
             entity.HasOne(job => job.WorkshopModel)
                  .WithMany(ws => ws.Jobs)
                  .HasForeignKey(job => job.WorkshopId);

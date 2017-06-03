@@ -22,6 +22,5 @@ namespace Project1.ReadSide.Models
         public CityStatus Status { get; set; }
 
         public ICollection<WorkshopModel> Workshops { get; set; }
-        public ICollection<JobModel> Jobs { get; set; }
     }
 }

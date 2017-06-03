@@ -237,6 +237,10 @@
     <Compile Include="Migrations\20170603093352_StatusForCityTableMigration.designer.cs">
       <DependentUpon>20170603093352_StatusForCityTableMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170603215901_DeleteCityFromJob3Table.cs" />
+    <Compile Include="Migrations\20170603215901_DeleteCityFromJob3Table.designer.cs">
+      <DependentUpon>20170603215901_DeleteCityFromJob3Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -250,6 +254,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\CityReader.cs" />
     <Compile Include="Readers\CustomerReader.cs" />
+    <Compile Include="Readers\JobReader.cs" />
     <Compile Include="Readers\ProjectReader.cs" />
     <Compile Include="Readers\UserReader.cs" />
     <Compile Include="Readers\WorkshopReader.cs" />
