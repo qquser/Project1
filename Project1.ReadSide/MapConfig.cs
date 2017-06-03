@@ -28,6 +28,10 @@ namespace Project1.ReadSide
                 c.CreateMap<CityModel, CityDTO>()
                   .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
 
+                c.CreateMap<WorkshopModel, WorkshopDTO>()
+                   .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId))
+                   .ForMember(s => s.CityId, opt => opt.MapFrom(src => src.CityModel.AggregateId));
+
             });
             config.AssertConfigurationIsValid();
             return config.CreateMapper();

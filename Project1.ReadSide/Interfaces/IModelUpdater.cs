@@ -12,6 +12,7 @@ namespace Project1.ReadSide.Interfaces
         DbSet<CustomerModel> Customers { get; }
         DbSet<RoleModel> Roles { get; }
         DbSet<CityModel> Cities { get; }
+        DbSet<WorkshopModel> Workshops { get; }
         Task<int> SaveChangesAsync();
     }
 }

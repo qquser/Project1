@@ -85,6 +85,14 @@
     <Compile Include="User\UserAggregate.cs" />
     <Compile Include="User\ValueObjects\UserName.cs" />
     <Compile Include="User\ValueObjects\UserState.cs" />
+    <Compile Include="Workshop\Events\WorkshopAdded.cs" />
+    <Compile Include="Workshop\Events\WorkshopMarkedAsInActive.cs" />
+    <Compile Include="Workshop\Events\WorkshopRenamed.cs" />
+    <Compile Include="Workshop\Service\IWorkshopService.cs" />
+    <Compile Include="Workshop\Service\WorkshopService.cs" />
+    <Compile Include="Workshop\ValueObjects\WorkshopName.cs" />
+    <Compile Include="Workshop\ValueObjects\WorkshopState.cs" />
+    <Compile Include="Workshop\WorkshopAggregate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project1.Common\Project1.Common.csproj">

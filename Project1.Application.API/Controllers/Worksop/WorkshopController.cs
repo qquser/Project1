@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Project1.Application.API.Commands.Workshop;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.Workshop;
 using Project1.Application.API.Queries.Workshop;

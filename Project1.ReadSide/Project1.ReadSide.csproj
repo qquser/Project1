@@ -252,6 +252,7 @@
     <Compile Include="Readers\CustomerReader.cs" />
     <Compile Include="Readers\ProjectReader.cs" />
     <Compile Include="Readers\UserReader.cs" />
+    <Compile Include="Readers\WorkshopReader.cs" />
     <Compile Include="ScopeObserver.cs" />
     <Compile Include="SeedDb\DbContextExtension.cs" />
     <Compile Include="Updaters\City\CityUpdater.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Updaters\Customer\CustomerUpdater.cs" />
     <Compile Include="Updaters\Project\ProjectUpdater.cs" />
     <Compile Include="Updaters\User\UserUpdater.cs" />
+    <Compile Include="Updaters\Workshop\WorkshopUpdater.cs" />
     <Compile Include="UpdateService.cs" />
   </ItemGroup>
   <ItemGroup>

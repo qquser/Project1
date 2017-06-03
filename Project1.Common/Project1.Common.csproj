@@ -89,6 +89,9 @@
     <Compile Include="Events\UserAdded\IUserRegistred.cs" />
     <Compile Include="Events\UserAdded\IUserDemoted.cs" />
     <Compile Include="Events\UserAdded\IUserPromoted.cs" />
+    <Compile Include="Events\Workshop\IWorkshopAdded.cs" />
+    <Compile Include="Events\Workshop\IWorkshopMarkedAsInActive.cs" />
+    <Compile Include="Events\Workshop\IWorkshopRenamed.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="Messages\IMessagePublisher.cs" />
     <Compile Include="NonEmptyIdentity.cs" />
@@ -109,5 +112,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
