@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Models.Workshop
 {
-    public class AddWorkshopModel
+    public class RenameWorkshopModel
     {
         public Guid CommandId { get; set; }
 
         [Required]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public Guid CityId { get; set; }
+        public string NewName { get; set; }
     }
 }

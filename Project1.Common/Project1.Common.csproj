@@ -45,9 +45,12 @@
   <ItemGroup>
     <Compile Include="Commands\City\IAddCity.cs" />
     <Compile Include="Commands\City\IMakeCityInActive.cs" />
+    <Compile Include="Commands\City\IRenameCity.cs" />
+    <Compile Include="Commands\Workshop\IAddWorkshop.cs" />
+    <Compile Include="Commands\Workshop\IMakeWorkshopInActive.cs" />
     <Compile Include="Commands\Customer\IAddCustomer.cs" />
     <Compile Include="Commands\Customer\IMakeCustomerInActive.cs" />
-    <Compile Include="Commands\City\IRenameCity.cs" />
+    <Compile Include="Commands\Workshop\IRenameWorkshop.cs" />
     <Compile Include="Commands\Customer\IRenameCustomer.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
@@ -61,12 +64,15 @@
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\WorkshopDTO.cs" />
     <Compile Include="Enums\CityStatus.cs" />
     <Compile Include="Enums\CustomerStatus.cs" />
     <Compile Include="Enums\ExceptionMessage.cs" />
+    <Compile Include="Enums\JobStatus.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\UserRole.cs" />
     <Compile Include="Enums\UserStatus.cs" />
+    <Compile Include="Enums\WorkshopStatus.cs" />
     <Compile Include="Events\City\ICityAdded.cs" />
     <Compile Include="Events\City\ICityMarkedAdInActive.cs" />
     <Compile Include="Events\City\ICityRenamed.cs" />
@@ -96,6 +102,8 @@
     <Compile Include="Queries\Users\IGetAllUsers.cs" />
     <Compile Include="Queries\Users\IGetUser.cs" />
     <Compile Include="Queries\Users\IGetUserByEmail.cs" />
+    <Compile Include="Queries\Workshop\IGetAllWorkshops.cs" />
+    <Compile Include="Queries\Workshop\IGetWorkshop.cs" />
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
   <ItemGroup>
