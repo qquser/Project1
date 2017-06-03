@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\City\IAddCity.cs" />
+    <Compile Include="Commands\City\IMakeCityInActive.cs" />
     <Compile Include="Commands\Customer\IAddCustomer.cs" />
     <Compile Include="Commands\Customer\IMakeCustomerInActive.cs" />
+    <Compile Include="Commands\City\IRenameCity.cs" />
     <Compile Include="Commands\Customer\IRenameCustomer.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
@@ -54,9 +57,11 @@
     <Compile Include="Commands\User\IDemoteUser.cs" />
     <Compile Include="Commands\User\IPromoteUser.cs" />
     <Compile Include="Commands\User\IRegisterUser.cs" />
+    <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Enums\CityStatus.cs" />
     <Compile Include="Enums\CustomerStatus.cs" />
     <Compile Include="Enums\ExceptionMessage.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
@@ -79,6 +84,8 @@
     <Compile Include="Messages\IMessagePublisher.cs" />
     <Compile Include="NonEmptyIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\City\IGetAllCities.cs" />
+    <Compile Include="Queries\City\IGetCity.cs" />
     <Compile Include="Queries\Customer\IGetAllCustomers.cs" />
     <Compile Include="Queries\Customer\IGetCustomer.cs" />
     <Compile Include="Queries\Project\IGetAllProjects.cs" />
