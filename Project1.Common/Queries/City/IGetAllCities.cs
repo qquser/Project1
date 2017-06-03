@@ -13,6 +13,6 @@ namespace Project1.Common.Queries.City
 
     public interface IGetAllCitiesResult
     {
-        List<CityDTO> Customers { get; }
+        List<CityDTO> Cities { get; }
     }
 }

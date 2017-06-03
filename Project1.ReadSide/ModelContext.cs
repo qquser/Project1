@@ -27,12 +27,14 @@ namespace Project1.ReadSide
         public virtual DbSet<ProjectModel> Projects { get; set; }
         public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<RoleModel> Roles { get; set; }
+        public virtual DbSet<CityModel> Cities { get; set; }
 
 
         IQueryable<ProjectModel> IModelReader.Projects => Projects.AsNoTracking();
         IQueryable<CustomerModel> IModelReader.Customers => Customers.AsNoTracking();
         IQueryable<UserModel> IModelReader.Users => Users.AsNoTracking();
         IQueryable<RoleModel> IModelReader.Roles => Roles.AsNoTracking();
+        IQueryable<CityModel> IModelReader.Cities => Cities.AsNoTracking();
 
         async Task<int> IModelUpdater.SaveChangesAsync()
         {

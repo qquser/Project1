@@ -50,6 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateFactory.cs" />
+    <Compile Include="City\CityAggregate.cs" />
+    <Compile Include="City\Events\CityAdded.cs" />
+    <Compile Include="City\Events\CityMarkedAdInActive.cs" />
+    <Compile Include="City\Events\CityRenamed.cs" />
+    <Compile Include="City\Service\CityService.cs" />
+    <Compile Include="City\Service\ICityService.cs" />
+    <Compile Include="City\ValueObjects\CityName.cs" />
+    <Compile Include="City\ValueObjects\CityState.cs" />
     <Compile Include="Customer\CustomerAggregate.cs" />
     <Compile Include="Customer\Events\CustomerAdded.cs" />
     <Compile Include="Customer\Events\CustomerMarkedAdInActive.cs" />
@@ -87,5 +95,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

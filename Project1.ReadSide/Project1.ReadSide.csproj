@@ -233,6 +233,10 @@
     <Compile Include="Migrations\20170602112044_SimpleJobTable.designer.cs">
       <DependentUpon>20170602112044_SimpleJobTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170603093352_StatusForCityTableMigration.cs" />
+    <Compile Include="Migrations\20170603093352_StatusForCityTableMigration.designer.cs">
+      <DependentUpon>20170603093352_StatusForCityTableMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -244,11 +248,13 @@
     <Compile Include="Models\WorkshopModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Readers\CityReader.cs" />
     <Compile Include="Readers\CustomerReader.cs" />
     <Compile Include="Readers\ProjectReader.cs" />
     <Compile Include="Readers\UserReader.cs" />
     <Compile Include="ScopeObserver.cs" />
     <Compile Include="SeedDb\DbContextExtension.cs" />
+    <Compile Include="Updaters\City\CityUpdater.cs" />
     <Compile Include="Updaters\MessagePublisher.cs" />
     <Compile Include="Updaters\Customer\CustomerUpdater.cs" />
     <Compile Include="Updaters\Project\ProjectUpdater.cs" />

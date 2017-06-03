@@ -67,6 +67,9 @@
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\UserRole.cs" />
     <Compile Include="Enums\UserStatus.cs" />
+    <Compile Include="Events\City\ICityAdded.cs" />
+    <Compile Include="Events\City\ICityMarkedAdInActive.cs" />
+    <Compile Include="Events\City\ICityRenamed.cs" />
     <Compile Include="Events\Customer\ICustomerAdded.cs" />
     <Compile Include="Events\Customer\ICustomerMarkedAdInActive.cs" />
     <Compile Include="Events\Customer\ICustomerRenamed.cs" />

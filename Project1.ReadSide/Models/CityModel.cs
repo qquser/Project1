@@ -1,4 +1,5 @@
-﻿using Project1.ReadSide.Helpers;
+﻿using Project1.Common.Enums;
+using Project1.ReadSide.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Project1.ReadSide.Models
         }
 
         public string Name { get; set; }
+
+        public CityStatus Status { get; set; }
 
         public ICollection<WorkshopModel> Workshops { get; set; }
         public ICollection<JobModel> Jobs { get; set; }

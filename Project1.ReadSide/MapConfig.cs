@@ -23,7 +23,10 @@ namespace Project1.ReadSide
                 c.CreateMap<UserModel, UserDTO>()
                     .ForMember(s => s.RoleId, opt => opt.MapFrom(src => src.RoleModel.AggregateId))
                     .ForMember(s => s.RoleName, opt => opt.MapFrom(src => src.RoleModel.Name))
-                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId)); ;
+                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
+
+                c.CreateMap<CityModel, CityDTO>()
+                  .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId));
 
             });
             config.AssertConfigurationIsValid();

@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="EventPublisher.cs" />
     <Compile Include="EventStoreConfig.cs" />
+    <Compile Include="Handlers\City\CityHandler.cs" />
     <Compile Include="Handlers\Customer\CustomerHandler.cs" />
     <Compile Include="Handlers\Project\ProjectHandler.cs" />
     <Compile Include="Handlers\User\UserHandler.cs" />
@@ -119,5 +120,6 @@
       <Name>Project1.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
