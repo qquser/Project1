@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Controllers.Worksop
 {
-
+    //ws
     [Route("api/[controller]")]
     [Authorize(Roles = "admin")]
     public class WorkshopController : EnhancedApiController
