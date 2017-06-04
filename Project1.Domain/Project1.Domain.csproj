@@ -68,6 +68,14 @@
     <Compile Include="Customer\ValueObjects\CustomerName.cs" />
     <Compile Include="Customer\ValueObjects\CustomerState.cs" />
     <Compile Include="IDomainService.cs" />
+    <Compile Include="Job\Events\JobAdded.cs" />
+    <Compile Include="Job\Events\JobMarkedAsInActive.cs" />
+    <Compile Include="Job\Events\JobRenamed.cs" />
+    <Compile Include="Job\JobAggregate.cs" />
+    <Compile Include="Job\Service\IJobService.cs" />
+    <Compile Include="Job\Service\JobService.cs" />
+    <Compile Include="Job\ValueObjects\JobName.cs" />
+    <Compile Include="Job\ValueObjects\JobState.cs" />
     <Compile Include="Project\Events\ProjectAdded.cs" />
     <Compile Include="Project\Events\ProjectMarkedAsInActive.cs" />
     <Compile Include="Project\Events\ProjectRenamed.cs" />

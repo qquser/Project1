@@ -32,6 +32,11 @@ namespace Project1.ReadSide
                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId))
                    .ForMember(s => s.CityId, opt => opt.MapFrom(src => src.CityModel.AggregateId));
 
+                c.CreateMap<JobModel, JobDTO>()
+                   .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId))
+                   .ForMember(s => s.WorkshopId, opt => opt.MapFrom(src => src.WorkshopModel.AggregateId))
+                   .ForMember(s => s.UserId, opt => opt.MapFrom(src => src.UserModel.AggregateId));
+
             });
             config.AssertConfigurationIsValid();
             return config.CreateMapper();

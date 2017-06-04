@@ -10,6 +10,6 @@ namespace Project1.Common.Queries.Job
 
     public interface IGetJobResult
     {
-        ProjectDTO Project { get; }
+        JobDTO Job { get; }
     }
 }

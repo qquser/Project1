@@ -24,16 +24,12 @@ namespace Workshop1.Domain.Workshop
 
         internal WorkshopAggregate(WorkshopState state)
         {
-            if (state == null)
-            {
-                throw new ArgumentNullException(nameof(state));
-            }
-            _state = state;
+            _state = state ?? throw new ArgumentNullException(nameof(state));
         }
 
-        public WorkshopAggregate(NonEmptyIdentity id, WorkshopName name, NonEmptyIdentity customerId) : this(id)
+        public WorkshopAggregate(NonEmptyIdentity id, WorkshopName name, NonEmptyIdentity cityId) : this(id)
         {
-            RaiseEvent(new WorkshopAdded(id, name, customerId, WorkshopStatus.Active));
+            RaiseEvent(new WorkshopAdded(id, name, cityId, WorkshopStatus.Active));
         }
 
         public static WorkshopAggregate Add(Guid id, string name, Guid cityId)

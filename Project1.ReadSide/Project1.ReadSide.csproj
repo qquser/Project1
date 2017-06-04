@@ -261,6 +261,7 @@
     <Compile Include="ScopeObserver.cs" />
     <Compile Include="SeedDb\DbContextExtension.cs" />
     <Compile Include="Updaters\City\CityUpdater.cs" />
+    <Compile Include="Updaters\Job\JobUpdater.cs" />
     <Compile Include="Updaters\MessagePublisher.cs" />
     <Compile Include="Updaters\Customer\CustomerUpdater.cs" />
     <Compile Include="Updaters\Project\ProjectUpdater.cs" />
