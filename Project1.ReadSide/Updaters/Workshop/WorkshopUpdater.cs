@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Project1.ReadSide.Updaters.Workshop
 {
-    internal class WorkshopUpdater :
+    public class WorkshopUpdater :
             IConsumer<IWorkshopAdded>,
             IConsumer<IWorkshopRenamed>,
             IConsumer<IWorkshopMarkedAsInActive>

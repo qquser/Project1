@@ -12,7 +12,7 @@ namespace Project1.Client
         private readonly string _name;
         private readonly Guid _id;
         private readonly Guid _cityId;
-        public Workshop(Guid id, string name, Guid cityId)
+        public Workshop(string accessToken, Guid id, string name, Guid cityId) : base(accessToken)
         {
             _name = name;
             _id = id;
@@ -21,6 +21,7 @@ namespace Project1.Client
         public override async Task Add()
         {
             var request = new RestRequest($"api/workshop", Method.POST);
+            request.AddParameter("Authorization", string.Format("Bearer " + AccessToken), ParameterType.HttpHeader);
             request.AddParameter("Id", _id);
             request.AddParameter("Name", _name);
             request.AddParameter("CityId", _cityId);   

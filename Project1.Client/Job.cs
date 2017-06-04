@@ -13,7 +13,7 @@ namespace Project1.Client
         private readonly Guid _id;
         private readonly Guid _userId;
         private readonly Guid _workshopId;
-        public Job(Guid id, string name, Guid userId, Guid workshopId)
+        public Job(string accessToken, Guid id, string name, Guid userId, Guid workshopId) : base(accessToken)
         {
             _name = name;
             _id = id;
@@ -24,6 +24,7 @@ namespace Project1.Client
         public override async Task Add()
         {
             var request = new RestRequest($"api/job", Method.POST);
+            request.AddParameter("Authorization", string.Format("Bearer " + AccessToken), ParameterType.HttpHeader);
             request.AddParameter("JobId", _id);
             request.AddParameter("Name", _name);
             request.AddParameter("UserId", _userId);
