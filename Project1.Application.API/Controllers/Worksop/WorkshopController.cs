@@ -15,7 +15,7 @@ namespace Project1.Application.API.Controllers.Worksop
 {
     //ws2
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "user")]
     public class WorkshopController : EnhancedApiController
     {
         [HttpPost]

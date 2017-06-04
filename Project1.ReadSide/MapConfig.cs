@@ -30,10 +30,13 @@ namespace Project1.ReadSide
 
                 c.CreateMap<WorkshopModel, WorkshopDTO>()
                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId))
+                   .ForMember(s => s.JobIds,
+                       opt => opt.MapFrom(src => src.Jobs.Select(x => x.AggregateId)))
                    .ForMember(s => s.CityId, opt => opt.MapFrom(src => src.CityModel.AggregateId));
 
                 c.CreateMap<JobModel, JobDTO>()
                    .ForMember(s => s.Id, opt => opt.MapFrom(src => src.AggregateId))
+                   .ForMember(s => s.Name, opt => opt.MapFrom(src => src.Description))
                    .ForMember(s => s.WorkshopId, opt => opt.MapFrom(src => src.WorkshopModel.AggregateId))
                    .ForMember(s => s.UserId, opt => opt.MapFrom(src => src.UserModel.AggregateId));
 

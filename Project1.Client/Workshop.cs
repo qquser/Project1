@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,14 @@ namespace Project1.Client
         }
         public override async Task Add()
         {
-            throw new NotImplementedException();
+            var request = new RestRequest($"api/workshop", Method.POST);
+            request.AddParameter("Id", _id);
+            request.AddParameter("Name", _name);
+            request.AddParameter("CityId", _cityId);   
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(request) as RestResponse;
+
+            Console.WriteLine(response.Content);
         }
 
         public override async Task MakeInActive()

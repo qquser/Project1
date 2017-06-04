@@ -95,7 +95,7 @@ namespace Project1.Application.API.Controllers
 
             var response = new
             {
-                access_token = encodedJwt,
+                accesstoken = encodedJwt,
                 username = identity.Name
             };
             // сериализация ответа

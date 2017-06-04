@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
 using Microsoft.AspNet.SignalR.Client;
+using RestSharp.Deserializers;
+using System.Runtime.Serialization;
 
 namespace Project1.Client
 {
@@ -13,6 +15,21 @@ namespace Project1.Client
         static void Main(string[] args)
         {
             Console.WriteLine("Hello .net client!");
+            Console.ReadKey();
+
+            Console.WriteLine("Start");
+
+            var token = "lkjhggkvkhj";//GetToken().Result;
+            Test.CreateCityWorkshopAndJobTest(token);
+
+            Console.WriteLine("___");
+
+            Console.ReadKey();
+
+        }
+
+        void Do()
+        {
             IncommingData();
             Console.ReadKey();
             ConsoleKeyInfo input;
@@ -25,9 +42,11 @@ namespace Project1.Client
                 input = Console.ReadKey();
             } while (input.Key != ConsoleKey.Escape);
 
+
             //Console.WriteLine(ApiTest(new Guid("5dd11855-cb5d-4bc9-85d8-9e517e0c5b25"))); 
             // ProjectAdd(Guid.NewGuid());
             //Console.ReadKey();
+
         }
 
         private static async Task UserRegister()
@@ -37,12 +56,39 @@ namespace Project1.Client
             request.AddParameter("Id", Guid.NewGuid());
             request.AddParameter("Email", "qwe7@qwe.qwe");
             request.AddParameter("NewPassword", "qQ!123");
-            request.AddParameter("ConfirmPassword", "qQ!1213");
+            request.AddParameter("ConfirmPassword", "qQ!123");
             var response = new RestResponse();
             response = await GetResponseContentAsync(client, request) as RestResponse;
 
             Console.WriteLine(response.Content);
             //Console.ReadKey();
+        }
+
+        private static async Task<string> GetToken()
+        {
+            var client = new RestClient("http://localhost:49987/");
+            var request = new RestRequest($"api/account/token", Method.POST);
+            request.AddParameter("UserName", "qwe7@qwe.qwe");
+            request.AddParameter("Password", "qQ!123");
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(client, request) as RestResponse;
+
+            JsonDeserializer deserial = new JsonDeserializer();
+            var resultObj = deserial.Deserialize<TokenInfo>(response);
+
+            return resultObj.AccessToken;
+            //Console.ReadKey();
+        }
+
+        [DataContract]
+        private class TokenInfo
+        {
+            [DataMember(Name = "accesstoken")]
+            public string AccessToken { get; set; }
+
+            [DataMember(Name = "username")]
+            public string UserName { get; set; }
+
         }
 
         private static void IncommingData()

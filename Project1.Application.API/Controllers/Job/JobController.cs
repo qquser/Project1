@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project1.Application.API.Commands.Job;
 using Project1.Application.API.Models;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Project1.Application.API.Controllers.Job
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "user")]
     public class JobController : EnhancedApiController
     {
         [HttpPost]

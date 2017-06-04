@@ -16,7 +16,7 @@ namespace Project1.Application.API.Controllers.City
 {
 
     [Route("api/[controller]")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "user")]
     public class CityController : EnhancedApiController
     {
         [HttpPost]
