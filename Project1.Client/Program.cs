@@ -19,7 +19,7 @@ namespace Project1.Client
 
             Console.WriteLine("Start");
 
-            var token = "lkjhggkvkhj";//GetToken().Result;
+            var token = GetToken().Result;
             Test.CreateCityWorkshopAndJobTest(token);
 
             Console.WriteLine("___");
