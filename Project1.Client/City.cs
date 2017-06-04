@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,25 +7,33 @@ using System.Threading.Tasks;
 
 namespace Project1.Client
 {
-    internal class City : IStandardEntity
+    internal class City : StandardEntity
     {
         private readonly string _name;
-        public City(string name)
+        private readonly Guid _id;
+        public City(Guid id, string name)
         {
             _name = name;
+            _id = id;
         }
 
-        public void Add()
+        public override async Task Add()
+        {
+            var request = new RestRequest($"api/city", Method.POST);
+            request.AddParameter("Id", _id);
+            request.AddParameter("Name", _name);
+            var response = new RestResponse();
+            response = await GetResponseContentAsync(request) as RestResponse;
+
+            Console.WriteLine(response.Content);
+        }
+
+        public override async Task MakeInActive()
         {
             throw new NotImplementedException();
         }
 
-        public void MakeInActive()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Rename()
+        public override async Task Rename()
         {
             throw new NotImplementedException();
         }
