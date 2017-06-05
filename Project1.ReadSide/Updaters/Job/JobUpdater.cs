@@ -30,8 +30,8 @@ namespace Project1.ReadSide.Updaters.Job
             {
                 Description = context.Message.Name,
                 Status = context.Message.Status,
-                UserId = BaseModel.MakeId(typeof(CityModel), context.Message.UserId),
-                WorkshopId = BaseModel.MakeId(typeof(CityModel), context.Message.WorkshopId),
+                UserId = BaseModel.MakeId(typeof(UserModel), context.Message.UserId),
+                WorkshopId = BaseModel.MakeId(typeof(WorkshopModel), context.Message.WorkshopId),
             };
             _context.Jobs.Add(job);
             await _context.SaveChangesAsync();
