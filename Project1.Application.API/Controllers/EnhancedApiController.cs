@@ -19,7 +19,6 @@ namespace Project1.Application.API.Controllers
         //    return new AcceptedActionResult<T>(Request, value);
         //}
 
-        //TODO глаза слезяться маленечко, но зато декораторы запускаются, как надо прям
         protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) 
             where TModel : IModel 
             where TCommand : IBaseCommand<TModel>
