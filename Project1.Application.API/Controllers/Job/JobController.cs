@@ -13,7 +13,7 @@ namespace Project1.Application.API.Controllers.Job
 {
     [Route("api/[controller]")]
     [Authorize(Roles = "user")]
-    public class JobController : EnhancedApiController
+    internal class JobController : EnhancedApiController
     {
         [HttpPost]
         public async Task<IActionResult> Post(AddJobModel model)

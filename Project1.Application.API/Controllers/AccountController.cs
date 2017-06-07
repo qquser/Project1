@@ -6,7 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using Project1.Application.API.Bus;
+using Project1.Application.API.Commands;
 using Project1.Application.API.Commands.User;
+using Project1.Application.API.Composition_root;
 using Project1.Application.API.Helpers;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.User;
@@ -40,7 +42,7 @@ namespace Project1.Application.API.Controllers
                 if (model.CommandId == Guid.Empty)
                     model.CommandId = NewId.NextGuid();
 
-                var command = new RegisterUserCommand(model);
+                var command = GetCommand(new RegisterUserCommand(model), model);//new RegisterUserCommand(model);
                 var result = await BusControl.SendCommandWithRespond<IRegisterUser, IGetUserResult>(command);
 
                 var identity = AuthOptions.GetIdentity(command.Email, model.NewPassword, result.User.PasswordHash, result.User.RoleName);
@@ -63,7 +65,6 @@ namespace Project1.Application.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
 
 
         [HttpPost]

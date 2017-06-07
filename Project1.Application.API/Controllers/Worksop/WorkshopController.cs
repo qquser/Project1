@@ -16,7 +16,7 @@ namespace Project1.Application.API.Controllers.Worksop
     //ws2
     [Route("api/[controller]")]
     [Authorize(Roles = "user")]
-    public class WorkshopController : EnhancedApiController
+    internal class WorkshopController : EnhancedApiController
     {
         [HttpPost]
         public async Task<IActionResult> Post(AddWorkshopModel model)

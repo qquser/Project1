@@ -6,6 +6,9 @@ using MassTransit;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc;
 using Project1.Application.API.Bus;
+using Project1.Application.API.Commands;
+using Project1.Application.API.Composition_root;
+using Project1.Application.API.Models;
 
 namespace Project1.Application.API.Controllers
 {
@@ -15,6 +18,13 @@ namespace Project1.Application.API.Controllers
         //{
         //    return new AcceptedActionResult<T>(Request, value);
         //}
+
+        //TODO глаза слезяться маленечко, но зато декораторы запускаются, как надо прям
+        protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) where TModel : IModel where TCommand : class//Command<IModel>
+        {
+            Bootstrapper.GetInstance<BaseCommand<TModel>>();
+            return command;
+        }
 
         protected async Task Send<TMessage>(TMessage message,
             CancellationToken cancellationToken = default(CancellationToken))

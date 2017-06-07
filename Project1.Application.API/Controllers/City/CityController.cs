@@ -17,7 +17,7 @@ namespace Project1.Application.API.Controllers.City
 
     [Route("api/[controller]")]
     [Authorize(Roles = "user")]
-    public class CityController : EnhancedApiController
+    internal class CityController : EnhancedApiController
     {
         [HttpPost]
         public async Task<IActionResult> Post(AddCityModel model)

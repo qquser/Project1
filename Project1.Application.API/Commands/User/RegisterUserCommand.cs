@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands.User
 {
-    public class RegisterUserCommand : IRegisterUser
+    internal class RegisterUserCommand : BaseCommand<RegisterUserModel>, IRegisterUser
     {
         private readonly RegisterUserModel _model;
 
         public RegisterUserCommand(RegisterUserModel model)
         {
-            new ConfirmPasswordCheckDecorator(model);
-            new EmailShouldNotExistDecorator(model);
+            //new ConfirmPasswordCheckDecorator(model);
+            //new EmailShouldNotExistDecorator(model);
             _model = model;
             Timestamp = DateTime.UtcNow;
         }
@@ -28,5 +28,10 @@ namespace Project1.Application.API.Commands.User
 
         public DateTime Timestamp { get; }
         public Guid CommandId => _model.CommandId;
+
+        public override void Validate(RegisterUserModel command) { }
+
     }
+
+
 }

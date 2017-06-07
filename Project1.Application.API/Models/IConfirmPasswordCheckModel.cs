@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Project1.Application.API.Models
+{
+    internal interface IConfirmPasswordCheckModel : IModel
+    {
+        string NewPassword { get; set; }
+
+        string ConfirmPassword { get; set; }
+    }
+}

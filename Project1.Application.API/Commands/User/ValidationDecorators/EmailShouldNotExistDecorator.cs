@@ -1,4 +1,5 @@
 ﻿using Project1.Application.API.Bus;
+using Project1.Application.API.Models;
 using Project1.Application.API.Models.User;
 using Project1.Application.API.Queries.User;
 using Project1.Common.Enums;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands.User.ValidationDecorators
 {
-    public class EmailShouldNotExistDecorator: Decorator<RegisterUserModel>
+    internal class EmailShouldNotExistDecorator<TModel> : BaseCommand<TModel> where TModel : IEmailShouldNotExistModel 
     {
-        public EmailShouldNotExistDecorator(RegisterUserModel model) : base(model)
+        public EmailShouldNotExistDecorator(BaseCommand<TModel> decoratedCommand, TModel model)
         {
         }
 
-        protected override void Validate(RegisterUserModel model)
+        public override void Validate(TModel model)
         {
             var query = new GetUserByEmail(model.Email);
             var result = BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
