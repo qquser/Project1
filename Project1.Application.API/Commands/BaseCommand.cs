@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands
 {
-    internal abstract class BaseCommand<TModel> where TModel : IModel
+    public interface IBaseCommand<TModel> where TModel : IModel
     {
-        public abstract void Validate(TModel model);
+        void Handle(TModel model);
 
     }
 }

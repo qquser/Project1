@@ -27,11 +27,11 @@ namespace Project1.Application.API.Composition_root
                 throw new ArgumentNullException(nameof(container));
             }
 
-            container.Register(typeof(BaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
+            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
 
-            container.RegisterDecorator(typeof(BaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>));
-            container.RegisterDecorator(typeof(BaseCommand<>), typeof(EmailShouldNotExistDecorator<>));
-            container.RegisterDecorator(typeof(BaseCommand<>), typeof(AuthorizationCommandDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>));
 
 
             //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() });

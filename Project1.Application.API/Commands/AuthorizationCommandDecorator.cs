@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands
 {
-    internal class AuthorizationCommandDecorator<TModel> : BaseCommand<TModel> where TModel : IModel
+    internal class AuthorizationCommandDecorator<TModel> : IBaseCommand<TModel> where TModel : IModel
     {
-        public AuthorizationCommandDecorator(BaseCommand<TModel> decoratedCommand, TModel model) 
+        private readonly IBaseCommand<TModel> _decoratedHandler;
+        public AuthorizationCommandDecorator(IBaseCommand<TModel> decoratedCommand) 
         {
+            _decoratedHandler = decoratedCommand;
+            //Validate(decoratedCommand);
         }
 
-        public override void Validate(TModel model)
+        public void Handle(TModel model)
         {
+            Validate(model);
+            _decoratedHandler.Handle(model);
+        }
+     
+        private void Validate(TModel command)
+        {
+          
         }
     }
 }

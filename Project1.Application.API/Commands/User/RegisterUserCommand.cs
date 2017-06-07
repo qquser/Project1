@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands.User
 {
-    internal class RegisterUserCommand : BaseCommand<RegisterUserModel>, IRegisterUser
+    internal class RegisterUserCommand : IBaseCommand<RegisterUserModel>, IRegisterUser
     {
         private readonly RegisterUserModel _model;
 
@@ -29,8 +29,10 @@ namespace Project1.Application.API.Commands.User
         public DateTime Timestamp { get; }
         public Guid CommandId => _model.CommandId;
 
-        public override void Validate(RegisterUserModel command) { }
-
+        public void Handle(RegisterUserModel model)
+        {
+      
+        }
     }
 
 

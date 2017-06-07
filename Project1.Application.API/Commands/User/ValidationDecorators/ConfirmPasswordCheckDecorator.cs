@@ -8,15 +8,25 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands.User.ValidationDecorators
 {
-    internal class ConfirmPasswordCheckDecorator<TModel> : BaseCommand<TModel> where TModel : IConfirmPasswordCheckModel
+    internal class ConfirmPasswordCheckDecorator<TModel> : IBaseCommand<TModel> where TModel : IConfirmPasswordCheckModel
     {
-        public ConfirmPasswordCheckDecorator(BaseCommand<TModel> decoratedCommand, TModel model)
+        private readonly IBaseCommand<TModel> _decoratedHandler;
+        public ConfirmPasswordCheckDecorator(IBaseCommand<TModel> decoratedCommand)
         {
+            _decoratedHandler = decoratedCommand;
+            //Validate(decoratedCommand);
         }
-        public override void Validate(TModel model)
+
+        private void Validate(TModel model)
         {
             if (model.NewPassword != model.ConfirmPassword)
                 throw new Exception(ExceptionInfo.WrongPasswordConfirmation.Message);
+        }
+
+        public void Handle(TModel model)
+        {
+            Validate(model);
+            _decoratedHandler.Handle(model);
         }
     }
 }

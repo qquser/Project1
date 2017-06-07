@@ -11,17 +11,26 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands.User.ValidationDecorators
 {
-    internal class EmailShouldNotExistDecorator<TModel> : BaseCommand<TModel> where TModel : IEmailShouldNotExistModel 
+    internal class EmailShouldNotExistDecorator<TModel> : IBaseCommand<TModel> where TModel : IEmailShouldNotExistModel 
     {
-        public EmailShouldNotExistDecorator(BaseCommand<TModel> decoratedCommand, TModel model)
+        private readonly IBaseCommand<TModel> _decoratedHandler;
+        public EmailShouldNotExistDecorator(IBaseCommand<TModel> decoratedCommand)
         {
+            _decoratedHandler = decoratedCommand;
+            //Validate(decoratedCommand);
         }
 
-        public override void Validate(TModel model)
+        public void Handle(TModel model)
+        {
+            Validate(model);
+            _decoratedHandler.Handle(model);
+        }
+
+        public void Validate(TModel model)
         {
             var query = new GetUserByEmail(model.Email);
             var result = BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
-            if (result.User!=null)
+            if (result.User != null)
                 throw new Exception(ExceptionInfo.EmailAlreadyExists.Message);
         }
 
