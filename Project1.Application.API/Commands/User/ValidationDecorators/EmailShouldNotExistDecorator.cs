@@ -17,7 +17,6 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
         public EmailShouldNotExistDecorator(IBaseCommand<TModel> decoratedCommand)
         {
             _decoratedHandler = decoratedCommand;
-            //Validate(decoratedCommand);
         }
 
         public void Handle(TModel model)

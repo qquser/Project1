@@ -14,7 +14,6 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
         public ConfirmPasswordCheckDecorator(IBaseCommand<TModel> decoratedCommand)
         {
             _decoratedHandler = decoratedCommand;
-            //Validate(decoratedCommand);
         }
 
         private void Validate(TModel model)
