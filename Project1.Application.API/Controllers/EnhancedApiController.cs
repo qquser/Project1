@@ -20,7 +20,9 @@ namespace Project1.Application.API.Controllers
         //}
 
         //TODO глаза слезяться маленечко, но зато декораторы запускаются, как надо прям
-        protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) where TModel : IModel where TCommand : class//Command<IModel>
+        protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) 
+            where TModel : IModel 
+            where TCommand : IBaseCommand<TModel>
         {
             Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model);
             return command;
