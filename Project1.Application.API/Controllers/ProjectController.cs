@@ -1,5 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Project1.Application.API.Commands;
+using Project1.Application.API.CrossCuttingConcerns;
 using Project1.Application.API.Models;
 using Project1.Application.API.Models.Project;
 using Project1.Common.Commands.Project;
@@ -98,14 +100,15 @@ namespace Project1.Application.API.Controllers
     {
     }
 
-    class GetProject : IGetProject
+    public class GetProject : BaseHandler, IBaseCommand<RenameProjectModel>, IGetProject
     {
-        public GetProject(Guid id)
-        {
-            Id = id;
-        }
 
         public Guid Id { get; }
+
+        public void Handle(RenameProjectModel model)
+        {
+       
+        }
     }
 
     class RenameProjectCommand : IRenameProject

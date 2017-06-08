@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Project1.Application.API.Bus;
+using Project1.Application.API.CrossCuttingConcerns;
 using Project1.Application.API.Queries.User;
 using Project1.Common.DTO;
 using Project1.Common.Enums;
@@ -111,7 +112,7 @@ namespace Project1.Application.API.Middleware
 
                         
                         string email = ticket.Principal.Identity.Name;
-                        var user = GetUser(ticket.Principal.Identity.Name);
+                        var user = UserExtensions.GetUser(ticket.Principal.Identity.Name);
                         if(user.User.Status != UserStatus.Active)
                             return AuthenticateResult.Skip();
 
@@ -162,11 +163,6 @@ namespace Project1.Application.API.Middleware
             }
         }
 
-        private IGetUserResult GetUser(string email)
-        {
-            var query = new GetUserByEmail(email);
-            return BusControl.SendRequest<IGetUserByEmail, IGetUserResult>(query).Result;
-        }
 
         private async Task<TokenValidationParameters> Param()
         {

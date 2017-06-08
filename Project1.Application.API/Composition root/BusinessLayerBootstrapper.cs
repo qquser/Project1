@@ -1,10 +1,13 @@
 ﻿using Project1.Application.API.Commands;
 using Project1.Application.API.Commands.User.ValidationDecorators;
+using Project1.Application.API.CrossCuttingConcerns;
+using Project1.Application.API.Exceptions;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Project1.Application.API.Composition_root

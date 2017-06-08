@@ -42,7 +42,7 @@ namespace Project1.Application.API.Controllers
                 if (model.CommandId == Guid.Empty)
                     model.CommandId = NewId.NextGuid();
 
-                var command = GetCommand(new RegisterUserCommand(model), model);//new RegisterUserCommand(model);
+                var command = GetAllowedForEveryoneCommand(new RegisterUserCommand(model), model);//new RegisterUserCommand(model);
                 var result = await BusControl.SendCommandWithRespond<IRegisterUser, IGetUserResult>(command);
 
                 var identity = AuthOptions.GetIdentity(command.Email, model.NewPassword, result.User.PasswordHash, result.User.RoleName);

@@ -9,6 +9,7 @@ using Project1.Application.API.Bus;
 using Project1.Application.API.Commands;
 using Project1.Application.API.Composition_root;
 using Project1.Application.API.Models;
+using Project1.Application.API.CrossCuttingConcerns;
 
 namespace Project1.Application.API.Controllers
 {
@@ -21,10 +22,25 @@ namespace Project1.Application.API.Controllers
 
         protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) 
             where TModel : IModel 
-            where TCommand : IBaseCommand<TModel>
+            where TCommand : BaseHandler, IBaseCommand<TModel>
+        {
+            InitializeBaseHandler(command);
+            Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model);
+            return command;
+        }
+
+        protected TCommand GetAllowedForEveryoneCommand<TCommand, TModel>(TCommand command, TModel model)
+             where TModel : IAllowedForEveryoneModel
+             where TCommand : IBaseCommand<TModel>
         {
             Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model);
             return command;
+        }
+
+
+        void InitializeBaseHandler(BaseHandler command)
+        {
+            command.User = UserExtensions.GetUser(User.Identity.Name).User;
         }
 
         protected async Task Send<TMessage>(TMessage message,

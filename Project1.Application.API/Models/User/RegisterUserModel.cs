@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Models.User
 {
-    public class RegisterUserModel : IEmailShouldNotExistModel, IConfirmPasswordCheckModel
+    public class RegisterUserModel : IEmailShouldNotExistModel, IConfirmPasswordCheckModel, IAllowedForEveryoneModel
     {
         public Guid CommandId { get; set; }
 

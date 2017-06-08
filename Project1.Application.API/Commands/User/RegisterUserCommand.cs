@@ -1,5 +1,7 @@
 ﻿using Project1.Application.API.Commands.User.ValidationDecorators;
+using Project1.Application.API.CrossCuttingConcerns;
 using Project1.Application.API.Helpers;
+using Project1.Application.API.Models;
 using Project1.Application.API.Models.User;
 using Project1.Common;
 using Project1.Common.Commands.User;
@@ -16,8 +18,6 @@ namespace Project1.Application.API.Commands.User
 
         public RegisterUserCommand(RegisterUserModel model)
         {
-            //new ConfirmPasswordCheckDecorator(model);
-            //new EmailShouldNotExistDecorator(model);
             _model = model;
             Timestamp = DateTime.UtcNow;
         }
@@ -31,7 +31,7 @@ namespace Project1.Application.API.Commands.User
 
         public void Handle(RegisterUserModel model)
         {
-      
+
         }
     }
 

@@ -4,20 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-
+using Project1.Application.API.Models.Project;
+using Project1.Application.API.Models;
+using Project1.Application.API.Commands;
+using Project1.Application.API.Composition_root;
+using Project1.Application.API.CrossCuttingConcerns;
 
 namespace Project1.Application.API.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : EnhancedApiController
     {
 
         [Authorize]
         [Route("getlogin")]
         public IActionResult GetLogin()
         {
+            var query =  GetCommand(new GetProject(), new RenameProjectModel());
             return Ok($"Ваш логин: {User.Identity.Name}");
         }
+
+
+
 
         [Authorize(Roles = "user")]
         [Route("getrole")]

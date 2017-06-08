@@ -1,4 +1,5 @@
-﻿using Project1.Application.API.Models;
+﻿using Project1.Application.API.Exceptions;
+using Project1.Application.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,22 @@ namespace Project1.Application.API.Commands
             Validate(model);
             _decoratedHandler.Handle(model);
         }
-     
+
         private void Validate(TModel command)
         {
-          
+            try
+            {
+                if (command is IAllowedForEveryoneModel)
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new AuthorizationException();
+            }
+
         }
     }
 }
