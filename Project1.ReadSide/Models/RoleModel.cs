@@ -18,5 +18,6 @@ namespace Project1.ReadSide.Models
         public string Name { get; set; }
         public string RolePermission { get; set; }
         public ICollection<UserModel> Users { get; set; }
+        public ICollection<WorkshopUserTeamMember> RoleWorkshopsUsers { get; set; }      
     }
 }

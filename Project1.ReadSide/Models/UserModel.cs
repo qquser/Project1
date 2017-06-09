@@ -25,5 +25,6 @@ namespace Project1.ReadSide.Models
         public RoleModel RoleModel { get; set; }
 
         public ICollection<JobModel> Jobs { get; set; }
+        public ICollection<WorkshopUserTeamMember> UserWorkshopsRoles { get; set; }
     }
 }

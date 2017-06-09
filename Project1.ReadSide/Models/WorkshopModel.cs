@@ -25,5 +25,7 @@ namespace Project1.ReadSide.Models
         public WorkshopStatus Status { get; set; }
 
         public ICollection<JobModel> Jobs { get; set; }
+        public ICollection<WorkshopUserTeamMember> WorkshopUsersRoles { get; set; }
+        
     }
 }

@@ -193,6 +193,7 @@
     <Compile Include="Mappings\RoleModelConfiguration.cs" />
     <Compile Include="Mappings\UserModelConfiguration.cs" />
     <Compile Include="Mappings\WorkshopModelConfiguration.cs" />
+    <Compile Include="Mappings\WorkshopUserTeamMemberConfiguration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.cs" />
     <Compile Include="Migrations\20170315200543_InitialMigration.designer.cs">
       <DependentUpon>20170315200543_InitialMigration.cs</DependentUpon>
@@ -241,6 +242,10 @@
     <Compile Include="Migrations\20170603215901_DeleteCityFromJob3Table.designer.cs">
       <DependentUpon>20170603215901_DeleteCityFromJob3Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20170609155911_WorkshopUserTeamMemberTable.cs" />
+    <Compile Include="Migrations\20170609155911_WorkshopUserTeamMemberTable.designer.cs">
+      <DependentUpon>20170609155911_WorkshopUserTeamMemberTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ModelContextModelSnapshot.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -250,6 +255,7 @@
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WorkshopModel.cs" />
+    <Compile Include="Models\WorkshopUserTeamMember.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Readers\CityReader.cs" />
