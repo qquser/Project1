@@ -1,4 +1,5 @@
-﻿using Project1.Application.API.Exceptions;
+﻿using Project1.Application.API.CrossCuttingConcerns;
+using Project1.Application.API.Exceptions;
 using Project1.Application.API.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project1.Application.API.Commands
 {
-    internal class AuthorizationCommandDecorator<TModel> : IBaseCommand<TModel> where TModel : IModel
+    internal class AuthorizationCommandDecorator<TModel> : BaseHandler, IBaseCommand<TModel> where TModel : IModel
     {
         private readonly IBaseCommand<TModel> _decoratedHandler;
         public AuthorizationCommandDecorator(IBaseCommand<TModel> decoratedCommand) 
@@ -26,6 +27,7 @@ namespace Project1.Application.API.Commands
         {
             try
             {
+                var user = User;
                 if (command is IAllowedForEveryoneModel)
                 {
                     return;

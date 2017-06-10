@@ -42,7 +42,7 @@ namespace Project1.Application.API.Controllers
                 if (model.CommandId == Guid.Empty)
                     model.CommandId = NewId.NextGuid();
 
-                var command = GetAllowedForEveryoneCommand(new RegisterUserCommand(model), model);//new RegisterUserCommand(model);
+                var command = GetCommand<RegisterUserCommand, RegisterUserModel>(model);
                 var result = await BusControl.SendCommandWithRespond<IRegisterUser, IGetUserResult>(command);
 
                 var identity = AuthOptions.GetIdentity(command.Email, model.NewPassword, result.User.PasswordHash, result.User.RoleName);
@@ -57,7 +57,6 @@ namespace Project1.Application.API.Controllers
                     CommandId = result.User.Id,
                     Timestamp = command.Timestamp,
                     Token = token,
-
                 });
             }
             catch(Exception ex)

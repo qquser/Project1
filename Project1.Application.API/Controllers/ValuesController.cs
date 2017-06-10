@@ -20,7 +20,9 @@ namespace Project1.Application.API.Controllers
         [Route("getlogin")]
         public IActionResult GetLogin()
         {
-            var query =  GetCommand(new GetProject(), new RenameProjectModel());
+            // var query =  GetCommand(new GetProject(), new RenameProjectModel());
+
+            var query = GetCommand<GetProject, RenameProjectModel>(new RenameProjectModel());
             return Ok($"Ваш логин: {User.Identity.Name}");
         }
 

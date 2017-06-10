@@ -1,4 +1,5 @@
-﻿using Project1.Application.API.Commands;
+﻿using Microsoft.AspNetCore.Http;
+using Project1.Application.API.Commands;
 using Project1.Application.API.Commands.User.ValidationDecorators;
 using Project1.Application.API.CrossCuttingConcerns;
 using Project1.Application.API.Exceptions;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Project1.Application.API.Composition_root
 {
@@ -29,6 +31,9 @@ namespace Project1.Application.API.Composition_root
             {
                 throw new ArgumentNullException(nameof(container));
             }
+            //container.RegisterSingleton<IPrincipal>(new HttpContextPrinciple());
+
+            container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
 
@@ -37,8 +42,24 @@ namespace Project1.Application.API.Composition_root
             container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>));
 
 
-            //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() });
+            //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() }); 
 
+            container.RegisterInitializer<IBaseHandler>(handler =>
+            {
+                try
+                {
+                    var accesor = container.GetInstance<IHttpContextAccessor>();
+                    var userName = accesor.HttpContext?.User?.Identity?.Name;
+                    if (string.IsNullOrEmpty(userName))
+                        return;
+
+                    handler.User = UserExtensions.GetUser(userName).User;
+                }
+                catch
+                {
+
+                }
+            });
 
         }
     }

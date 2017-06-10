@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Project1.Application.API.Helpers;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 
 namespace Project1.Application.API
 {
@@ -57,6 +58,7 @@ namespace Project1.Application.API
             services.Add(new ServiceDescriptor(typeof(JsonSerializer),
                          provider => serializer,
                          ServiceLifetime.Transient));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

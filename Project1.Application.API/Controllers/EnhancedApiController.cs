@@ -20,27 +20,14 @@ namespace Project1.Application.API.Controllers
         //    return new AcceptedActionResult<T>(Request, value);
         //}
 
-        protected TCommand GetCommand<TCommand, TModel>(TCommand command, TModel model) 
+        protected TCommand GetCommand<TCommand, TModel>(TModel model) 
             where TModel : IModel 
-            where TCommand : BaseHandler, IBaseCommand<TModel>
+            where TCommand : class, IBaseCommand<TModel>
         {
-            InitializeBaseHandler(command);
-            Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model);
-            return command;
-        }
-
-        protected TCommand GetAllowedForEveryoneCommand<TCommand, TModel>(TCommand command, TModel model)
-             where TModel : IAllowedForEveryoneModel
-             where TCommand : IBaseCommand<TModel>
-        {
-            Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model);
-            return command;
-        }
-
-
-        void InitializeBaseHandler(BaseHandler command)
-        {
-            command.User = UserExtensions.GetUser(User.Identity.Name).User;
+            Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model); //Вызов Handle для всех декораторов
+            var result = Bootstrapper.GetInstance<TCommand>(); 
+            result.Handle(model); 
+            return result;
         }
 
         protected async Task Send<TMessage>(TMessage message,

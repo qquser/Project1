@@ -14,24 +14,19 @@ namespace Project1.Application.API.Commands.User
 {
     internal class RegisterUserCommand : IBaseCommand<RegisterUserModel>, IRegisterUser
     {
-        private readonly RegisterUserModel _model;
-
-        public RegisterUserCommand(RegisterUserModel model)
-        {
-            _model = model;
-            Timestamp = DateTime.UtcNow;
-        }
+        private RegisterUserModel _model;
 
         public Guid Id => _model.Id;
         public string Email => _model.Email;
         public string PasswordHash => Hashing.HashPassword(_model.ConfirmPassword);
 
-        public DateTime Timestamp { get; }
+        public DateTime Timestamp { get; private set; }
         public Guid CommandId => _model.CommandId;
 
         public void Handle(RegisterUserModel model)
         {
-
+            _model = model;
+            Timestamp = DateTime.UtcNow;
         }
     }
 

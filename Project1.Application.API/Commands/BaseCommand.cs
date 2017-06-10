@@ -9,6 +9,5 @@ namespace Project1.Application.API.Commands
     public interface IBaseCommand<TModel> where TModel : IModel
     {
         void Handle(TModel model);
-
     }
 }
