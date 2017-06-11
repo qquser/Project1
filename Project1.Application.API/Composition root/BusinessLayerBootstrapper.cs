@@ -12,6 +12,11 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 
+
+using SimpleInjector.Lifestyles;
+using SimpleInjector.Integration.AspNetCore;
+using SimpleInjector.Integration.Web;
+
 namespace Project1.Application.API.Composition_root
 {
     internal static class BusinessLayerBootstrapper
@@ -32,14 +37,14 @@ namespace Project1.Application.API.Composition_root
                 throw new ArgumentNullException(nameof(container));
             }
             //container.RegisterSingleton<IPrincipal>(new HttpContextPrinciple());
-
+            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
             container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
+            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() }, Lifestyle.Scoped);
 
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>));
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>));
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>), Lifestyle.Scoped);
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>), Lifestyle.Scoped);
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>), Lifestyle.Scoped);
 
 
             //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() }); 
