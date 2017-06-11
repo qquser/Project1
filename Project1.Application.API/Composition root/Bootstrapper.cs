@@ -27,9 +27,9 @@ namespace Project1.Application.API.Composition_root
             return _container.GetInstance<T>();
         }
 
-        public static void Bootstrap()
-        {
-            _container = new Container();
+        public static void Bootstrap(Container container)
+        { 
+            _container = container;
 
             BusinessLayerBootstrapper.Bootstrap(_container);
 

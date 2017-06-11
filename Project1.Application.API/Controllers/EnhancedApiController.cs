@@ -10,6 +10,7 @@ using Project1.Application.API.Commands;
 using Project1.Application.API.Composition_root;
 using Project1.Application.API.Models;
 using Project1.Application.API.CrossCuttingConcerns;
+using Project1.Application.API.Commands.User;
 
 namespace Project1.Application.API.Controllers
 {
@@ -26,7 +27,7 @@ namespace Project1.Application.API.Controllers
         {
             Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model); //Вызов Handle для всех декораторов
             var result = Bootstrapper.GetInstance<TCommand>(); 
-            //result.Handle(model); 
+            result.Handle(model); 
             return result;
         }
 

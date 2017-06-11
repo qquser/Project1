@@ -23,9 +23,15 @@ namespace Project1.Application.API.Composition_root
     {
         private static Container _container;
 
+
         public static object GetInstance(Type serviceType)
         {
             return _container.GetInstance(serviceType);
+        }
+
+        public static T GetInstance<T>() where T : class
+        {
+            return _container.GetInstance<T>();
         }
 
         public static void Bootstrap(Container container)
@@ -37,14 +43,14 @@ namespace Project1.Application.API.Composition_root
                 throw new ArgumentNullException(nameof(container));
             }
             //container.RegisterSingleton<IPrincipal>(new HttpContextPrinciple());
-            container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
+            container.Options.DefaultScopedLifestyle =  new AsyncScopedLifestyle();//new WebRequestLifestyle();
             container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() }, Lifestyle.Scoped);
+            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
 
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>), Lifestyle.Scoped);
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>), Lifestyle.Scoped);
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>), Lifestyle.Scoped);
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>));
 
 
             //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() }); 

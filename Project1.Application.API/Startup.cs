@@ -15,11 +15,16 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Project1.Application.API.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using SimpleInjector;
+using Project1.Application.API.Composition_root;
 
 namespace Project1.Application.API
 {
     public class Startup
     {
+        private static Container _container = new Container();
         static IBusControl _bus;
         //static BusHandle _busHandle;
         public IConfigurationRoot Configuration { get; }
@@ -36,6 +41,12 @@ namespace Project1.Application.API
             Configuration = builder.Build();
 
             CreateBus();
+            
+        }
+
+        public static void AppInitialize()
+        {
+            Bootstrapper.Bootstrap(_container);
         }
 
 
@@ -59,11 +70,25 @@ namespace Project1.Application.API
                          provider => serializer,
                          ServiceLifetime.Transient));
 
+
+            //services.AddSingleton<IControllerActivator>(
+            //    new SimpleInjectorControllerActivator(container));
+            //services.AddSingleton<IViewComponentActivator>(
+            //    new SimpleInjectorViewComponentActivator(container));
+
+            services.UseSimpleInjectorAspNetRequestScoping(_container);
+
+
+
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            AppInitialize();
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

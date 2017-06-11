@@ -13,7 +13,6 @@ namespace Project1.Application.API
     {
         public static void Main(string[] args)
         {
-            AppInitialize();
             var host = WebHost();
             host.Run();
         }
@@ -30,9 +29,6 @@ namespace Project1.Application.API
                 .Build();
         }
 
-        public static void AppInitialize()
-        {
-            Bootstrapper.Bootstrap();
-        }
+
     }
 }
