@@ -15,6 +15,7 @@ namespace Project1.Application.API.Commands.User
     internal class RegisterUserCommand : IBaseCommand<RegisterUserModel>, IRegisterUser
     {
         private RegisterUserModel _model;
+        public IBaseCommand<RegisterUserModel> DecoratedHandler { get; }
 
         public Guid Id => _model.Id;
         public string Email => _model.Email;

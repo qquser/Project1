@@ -14,6 +14,8 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
     internal class EmailShouldNotExistDecorator<TModel> : IBaseCommand<TModel> where TModel : IEmailShouldNotExistModel 
     {
         private readonly IBaseCommand<TModel> _decoratedHandler;
+        public IBaseCommand<TModel> DecoratedHandler => _decoratedHandler;
+
         public EmailShouldNotExistDecorator(IBaseCommand<TModel> decoratedCommand)
         {
             _decoratedHandler = decoratedCommand;

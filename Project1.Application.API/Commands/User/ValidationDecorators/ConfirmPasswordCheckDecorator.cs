@@ -11,6 +11,8 @@ namespace Project1.Application.API.Commands.User.ValidationDecorators
     internal class ConfirmPasswordCheckDecorator<TModel> : IBaseCommand<TModel> where TModel : IConfirmPasswordCheckModel
     {
         private readonly IBaseCommand<TModel> _decoratedHandler;
+        public IBaseCommand<TModel> DecoratedHandler => _decoratedHandler;
+
         public ConfirmPasswordCheckDecorator(IBaseCommand<TModel> decoratedCommand)
         {
             _decoratedHandler = decoratedCommand;

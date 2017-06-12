@@ -11,11 +11,15 @@ namespace Project1.Application.API.Commands
     internal class AuthorizationCommandDecorator<TModel> : BaseHandler, IBaseCommand<TModel> where TModel : IModel
     {
         private readonly IBaseCommand<TModel> _decoratedHandler;
+        public IBaseCommand<TModel> DecoratedHandler => _decoratedHandler;
+
         public AuthorizationCommandDecorator(IBaseCommand<TModel> decoratedCommand) 
         {
             _decoratedHandler = decoratedCommand;
             //Validate(decoratedCommand);
         }
+
+        
 
         public void Handle(TModel model)
         {

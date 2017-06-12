@@ -11,6 +11,7 @@ using Project1.Application.API.Composition_root;
 using Project1.Application.API.Models;
 using Project1.Application.API.CrossCuttingConcerns;
 using Project1.Application.API.Commands.User;
+using Project1.Application.API.Helpers;
 
 namespace Project1.Application.API.Controllers
 {
@@ -26,10 +27,12 @@ namespace Project1.Application.API.Controllers
             where TCommand : class, IBaseCommand<TModel>
         {
             Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model); //Вызов Handle для всех декораторов
-            var result = Bootstrapper.GetInstance<TCommand>(); 
-            result.Handle(model); 
-            return result;
+            var command = Bootstrapper.GetInstance<IBaseCommand<TModel>>();
+            var result = command.Nodes().Single(x => x is TCommand);
+            return result as TCommand;
         }
+
+ 
 
         protected async Task Send<TMessage>(TMessage message,
             CancellationToken cancellationToken = default(CancellationToken))

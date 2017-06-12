@@ -8,6 +8,7 @@ namespace Project1.Application.API.Commands
 {
     public interface IBaseCommand<TModel> where TModel : IModel
     {
+        IBaseCommand<TModel> DecoratedHandler { get; }
         void Handle(TModel model);
     }
 }

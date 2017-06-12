@@ -105,6 +105,8 @@ namespace Project1.Application.API.Controllers
 
         public Guid Id { get; }
 
+        public IBaseCommand<RenameProjectModel> DecoratedHandler { get; }
+
         public void Handle(RenameProjectModel model)
         {
        

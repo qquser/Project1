@@ -16,6 +16,7 @@ using System.Web;
 using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.AspNetCore;
 using SimpleInjector.Integration.Web;
+using Project1.Common.Commands;
 
 namespace Project1.Application.API.Composition_root
 {
@@ -43,14 +44,15 @@ namespace Project1.Application.API.Composition_root
                 throw new ArgumentNullException(nameof(container));
             }
             //container.RegisterSingleton<IPrincipal>(new HttpContextPrinciple());
-            container.Options.DefaultScopedLifestyle =  new AsyncScopedLifestyle();//new WebRequestLifestyle();
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();//new WebRequestLifestyle();
             container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() });
+            container.Register(typeof(IBaseCommand<>), new[] { Assembly.GetExecutingAssembly() }, Lifestyle.Scoped);//, Lifestyle.Scoped
+            //container.RegisterCollection(typeof(ICommand), new[] { Assembly.GetExecutingAssembly()});
 
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>));
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>));
-            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>));
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(ConfirmPasswordCheckDecorator<>), Lifestyle.Scoped);
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(EmailShouldNotExistDecorator<>), Lifestyle.Scoped);
+            container.RegisterDecorator(typeof(IBaseCommand<>), typeof(AuthorizationCommandDecorator<>), Lifestyle.Scoped);
 
 
             //container.Register(typeof(BaseQuery<,>), new[] { Assembly.GetExecutingAssembly() }); 
