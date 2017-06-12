@@ -26,10 +26,10 @@ namespace Project1.Application.API.Controllers
             where TModel : IModel 
             where TCommand : class, IBaseCommand<TModel>
         {
-            Bootstrapper.GetInstance<IBaseCommand<TModel>>().Handle(model); //Вызов Handle для всех декораторов
             var command = Bootstrapper.GetInstance<IBaseCommand<TModel>>();
+            command.Handle(model); //Вызов всех декораторов и инициализация команды
             var result = command.Nodes().Single(x => x is TCommand);
-            return result as TCommand;
+            return (TCommand)result;
         }
 
  
