@@ -11,10 +11,13 @@ namespace Project1.Application.API.Helpers
     {
         public static IEnumerable<IBaseCommand<T>> Nodes<T>(this IBaseCommand<T> command) where T : IModel
         {
+            var list = new List<Type>();
             for (var node = command; node != null; node = node.DecoratedHandler)
             {
-                if (node.Equals(node.DecoratedHandler))
+                bool isNodeTypeExists = list.Any(x => x.Equals(node.GetType()));
+                if (isNodeTypeExists)
                     throw new Exception("This is an infinite cycle!");
+                list.Add(node.GetType());
                 yield return node;
             }
         }

@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationAPI\APICommonTests.cs" />
+    <Compile Include="ApplicationAPI\CommandHelperTests.cs" />
     <Compile Include="DomainTests\ProjectAggregateTests.cs" />
     <Compile Include="ReadSideTests\ContextConfigurationTests.cs" />
     <Compile Include="ReadSideTests\IProxy.cs" />
